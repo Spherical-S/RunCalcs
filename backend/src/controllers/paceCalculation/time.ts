@@ -5,11 +5,11 @@ export default function calculateTime(pace: number, distance: number, paceUnit: 
 
     var time;
 
-    var distances = unitConvert.convertDistance(distance, distUnit);
-    var paces = unitConvert.convertPace(pace, paceUnit);
+    var distances = unitConvert.convertDistance(distance, distUnit, false);
+    var paces = unitConvert.convertPace(pace, paceUnit, false);
 
     time = paces.secPerKm*distances.km;
 
-    return {"time": time};
+    return {"time": Math.round(time*100)/100};
 
 }

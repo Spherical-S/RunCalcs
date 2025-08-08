@@ -31,6 +31,8 @@ function recursiveBinarySearch(ptsArray: number[][], low: number, high: number, 
 
 export default function perfToPts(category: string, gender: string, event: string, target: number): {"points": number}{
 
+    const output = {"points": NaN};
+
     const ptsArray = WATABLES[category as keyof WAData][gender as keyof CategoryToGenderMap][event]!;
 
     const ascending = ptsArray[0]![0]! < ptsArray[1]![0]!
@@ -57,11 +59,7 @@ export default function perfToPts(category: string, gender: string, event: strin
     const result = recursiveBinarySearch(ptsArray, low, high, target, ascending);
 
     if (result.length == 1){
-        return {"points": result[0]![1]!};
-    }
-
-    if (result.length == 1){
-        return {"points": result[0]![1]!};
+        output.points = result[0]![1]!;
     }
 
     if (result.length == 2){
@@ -71,17 +69,21 @@ export default function perfToPts(category: string, gender: string, event: strin
             let ratio = (pair[0]!-target)/(pair[0]!-last_pair[0]!);
             let diff = pair[1]!-last_pair[1]!;
             let offset = diff * ratio;
-            return {"points": last_pair[1]! + offset};
+            output.points = last_pair[1]! + offset;
         }else{
             let last_pair = result[0]!
             let pair = result[1]!
             let ratio = (last_pair[0]!-target)/(last_pair[0]!-pair[0]!)
             let diff = last_pair[1]!-pair[1]!
             let offset = diff * ratio
-            return {"points": last_pair[1]! - offset};
+            output.points = last_pair[1]! - offset;
         }
     }
 
-    return {"points": NaN};
+    if (!isNaN(output.points)){
+        output.points = Math.round(output.points*100)/100;
+    }
+
+    return output;
 
 }

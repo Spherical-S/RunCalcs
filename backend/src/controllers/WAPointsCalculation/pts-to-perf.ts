@@ -23,6 +23,8 @@ function recursiveBinarySearch(ptsArray: number[][], low: number, high: number, 
 
 export default function ptsToPerf(category: string, gender: string, event: string, target: number): {mark: number}{
 
+    const output = {"mark": NaN};
+
     const ptsArray = WATABLES[category as keyof WAData][gender as keyof CategoryToGenderMap][event]!;
 
     var low = 0;
@@ -31,7 +33,7 @@ export default function ptsToPerf(category: string, gender: string, event: strin
     const result = recursiveBinarySearch(ptsArray, low, high, target);
 
     if (result.length == 1){
-        return {"mark": result[0]![0]!};
+        output.mark = result[0]![0]!;
     }
 
     if (result.length == 2){
@@ -40,9 +42,13 @@ export default function ptsToPerf(category: string, gender: string, event: strin
         let ratio = (target-pair[1]!)/(last_pair[1]!-pair[1]!);
         let diff = last_pair[0]! - pair[0]!;
         let offset = diff * ratio;
-        return {"mark": (pair[0]! + offset)};
+        output.mark = pair[0]! + offset;
     }
 
-    return {"mark": NaN};
+    if (!isNaN(output.mark)){
+        output.mark = Math.round(output.mark*100)/100;
+    }
+
+    return output;
 
 }

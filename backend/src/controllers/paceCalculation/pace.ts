@@ -4,10 +4,10 @@ import type { PaceUnits } from "../../types/unit.types.js";
 
 export default function calculatePace(time: number, distance: number, unit: number): PaceUnits{
 
-    var distances = unitConvert.convertDistance(distance, unit);
+    var distances = unitConvert.convertDistance(distance, unit, false);
 
     var pace = time/distances.km;
 
-    return unitConvert.convertPace(pace, PaceUnit.SecondsPerKm);
+    return unitConvert.convertPace(pace, PaceUnit.SecondsPerKm, true);
 
 }
