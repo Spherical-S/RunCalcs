@@ -1,0 +1,348 @@
+{
+    "50m": {
+        "55m": {"WACompatible": true},
+        "60m": {"WACompatible": true},
+        "100m": {"WACompatible": true}
+    },
+    "55m": {
+        "50m": {"WACompatible": true},
+        "60m": {"WACompatible": true},
+        "100m": {"WACompatible": true}
+    },
+    "60m": {
+        "50m": {"WACompatible": true},
+        "55m": {"WACompatible": true},
+        "100m": {"WACompatible": true}
+    },
+    "100m":{
+        "50m": {"WACompatible": true},
+        "55m": {"WACompatible": true},
+        "60m": {"WACompatible": true},
+        "200m": {"WACompatible": true},
+        "200msh": {"WACompatible": true}
+    },
+    "200m": {
+        "100m": {"WACompatible": true},
+        "300m": {"WACompatible": true},
+        "200msh": {"WACompatible": true},
+        "300msh": {"WACompatible": true}
+    },
+    "200msh": {
+        "100m": {"WACompatible": true},
+        "200m": {"WACompatible": true},
+        "300m": {"WACompatible": true},
+        "300msh": {"WACompatible": true}
+    },
+    "300m": {
+        "200m": {"WACompatible": true},
+        "400m": {"WACompatible": true},
+        "200msh": {"WACompatible": true},
+        "300msh": {"WACompatible": true},
+        "400msh": {"WACompatible": true}
+    },
+    "300msh": {
+        "200m": {"WACompatible": true},
+        "300m": {"WACompatible": true},
+        "400m": {"WACompatible": true},
+        "200msh": {"WACompatible": true},
+        "400msh": {"WACompatible": true}
+    },
+    "400m": {
+        "300m": {"WACompatible": true},
+        "500m": {"WACompatible": true},
+        "600m": {"WACompatible": true},
+        "300msh": {"WACompatible": true},
+        "400msh": {"WACompatible": true},
+        "500msh": {"WACompatible": true},
+        "600msh": {"WACompatible": true}
+    },
+    "400msh": {
+        "300m": {"WACompatible": true},
+        "400m": {"WACompatible": true},
+        "500m": {"WACompatible": true},
+        "600m": {"WACompatible": true},
+        "300msh": {"WACompatible": true},
+        "500msh": {"WACompatible": true},
+        "600msh": {"WACompatible": true}
+    },
+    "500m": {
+        "400m": {"WACompatible": true},
+        "600m": {"WACompatible": true},
+        "400msh": {"WACompatible": true},
+        "500msh": {"WACompatible": true},
+        "600msh": {"WACompatible": true}
+    },
+    "500msh": {
+        "400m": {"WACompatible": true},
+        "500m": {"WACompatible": true},
+        "600m": {"WACompatible": true},
+        "400msh": {"WACompatible": true},
+        "600msh": {"WACompatible": true}
+    },
+    "600m": {
+        "400m": {"WACompatible": true},
+        "500m": {"WACompatible": true},
+        "800m": {"WACompatible": true},
+        "400msh": {"WACompatible": true},
+        "500msh": {"WACompatible": true},
+        "600msh": {"WACompatible": true},
+        "800msh": {"WACompatible": true}
+    },
+    "600msh": {
+        "400m": {"WACompatible": true},
+        "500m": {"WACompatible": true},
+        "600m": {"WACompatible": true},
+        "800m": {"WACompatible": true},
+        "400msh": {"WACompatible": true},
+        "500msh": {"WACompatible": true},
+        "800msh": {"WACompatible": true}
+    },
+    "800m": {
+        "600m": {"WACompatible": true},
+        "1000m": {"WACompatible": true},
+        "600msh": {"WACompatible": true},
+        "800msh": {"WACompatible": true},
+        "1000msh": {"WACompatible": true}
+    },
+    "800msh": {
+        "600m": {"WACompatible": true},
+        "800m": {"WACompatible": true},
+        "1000m": {"WACompatible": true},
+        "600msh": {"WACompatible": true},
+        "1000msh": {"WACompatible": true}
+    },
+    "1000m": {
+        "800m": {"WACompatible": true},
+        "800msh": {"WACompatible": true},
+        "1000msh": {"WACompatible": true}
+    },
+    "1000msh": {
+        "800m": {"WACompatible": true},
+        "1000m": {"WACompatible": true},
+        "800msh": {"WACompatible": true}
+    },
+    "1500m": {
+        "1600m": {"WACompatible": false, "route": "Mile"},
+        "Mile": {"WACompatible": true},
+        "1500msh": {"WACompatible": true},
+        "1600msh": {"WACompatible": false, "route": "Milesh"},
+        "Milesh": {"WACompatible": true}
+    },
+    "1500msh": {
+        "1500m": {"WACompatible": true},
+        "1600m": {"WACompatible": false, "route": "Mile"},
+        "Mile": {"WACompatible": true},
+        "1600msh": {"WACompatible": false, "route": "Milesh"},
+        "Milesh": {"WACompatible": true}
+    },
+    "1600m": {
+        "1500m": {"WACompatible": false, "route": "Mile"},
+        "Mile": {"WACompatible": false, "multiplier": 1.0058},
+        "1500msh": {"WACompatible": false, "route": "Mile"},
+        "1600msh": {"WACompatible": false, "route": "Mile"},
+        "Milesh": {"WACompatible": false, "route": "Mile"}
+    },
+    "1600msh": {
+        "1500m": {"WACompatible": false, "route": "Milesh"},
+        "1600m": {"WACompatible": false, "route": "Milesh"},
+        "Mile": {"WACompatible": false, "route": "Milesh"},
+        "1500msh": {"WACompatible": false, "route": "Milesh"},
+        "Milesh": {"WACompatible": false, "multiplier": 1.0058}
+    },
+    "Mile": {
+        "1500m": {"WACompatible": true},
+        "1600m": {"WACompatible": false, "multiplier": 0.9942},
+        "1500msh": {"WACompatible": true},
+        "1600msh": {"WACompatible": false, "route": "Milesh"},
+        "Milesh": {"WACompatible": true},
+        "RoadMile": {"WACompatible": true}
+    },
+    "Milesh": {
+        "1500m": {"WACompatible": true},
+        "1600m": {"WACompatible": false, "route": "Mile"},
+        "Mile": {"WACompatible": true},
+        "1500msh": {"WACompatible": true},
+        "1600msh": {"WACompatible": false, "multiplier": 0.9942},
+        "RoadMile": {"WACompatible": true}
+    },
+    "RoadMile": {
+        "Mile": {"WACompatible": true},
+        "Milesh": {"WACompatible": true}
+    },
+    "3000m": {
+        "3200m": {"WACompatible": false, "route": "2Miles"},
+        "2Miles": {"WACompatible": true},
+        "3Miles": {"WACompatible": false, "route": "5000m"},
+        "5000m": {"WACompatible": true},
+        "3000msh": {"WACompatible": true},
+        "3200msh": {"WACompatible": false, "route": "2Miles"},
+        "2Milessh": {"WACompatible": true},
+        "5000msh": {"WACompatible": true}
+    },
+    "3000msh": {
+        "3000m": {"WACompatible": true},
+        "3200m": {"WACompatible": false, "route": "2Miles"},
+        "2Miles": {"WACompatible": true},
+        "3Miles": {"WACompatible": false, "route": "5000m"},
+        "5000m": {"WACompatible": true},
+        "3200msh": {"WACompatible": false, "route": "2Milessh"},
+        "2Milessh": {"WACompatible": true},
+        "5000msh": {"WACompatible": true}
+    },
+    "3200m": {
+        "3000m": {"WACompatible": false, "route": "2Miles"},
+        "2Miles": {"WACompatible": false, "multiplier": 1.0058},
+        "3Miles": {"WACompatible": false, "route": "2Miles"},
+        "5000m": {"WACompatible": false, "route": "2Miles"},
+        "3000msh": {"WACompatible": false, "route": "2Miles"},
+        "3200msh": {"WACompatible": false, "route": "2Miles"},
+        "2Milessh": {"WACompatible": false, "route": "2Miles"},
+        "5000msh": {"WACompatible": false, "route": "2Miles"}
+    },
+    "3200msh": {
+        "3000m": {"WACompatible": false, "route": "2Milessh"},
+        "3200m": {"WACompatible": false, "route": "2Milessh"},
+        "2Miles": {"WACompatible": false, "route": "2Milessh"},
+        "3Miles": {"WACompatible": false, "route": "2Milessh"},
+        "5000m": {"WACompatible": false, "route": "2Milessh"},
+        "3000msh": {"WACompatible": false, "route": "2Milessh"},
+        "2Milessh": {"WACompatible": false, "multiplier": 1.0058},
+        "5000msh": {"WACompatible": false, "route": "2Milessh"}
+    },
+    "2Miles": {
+        "3000m": {"WACompatible": true},
+        "3200m": {"WACompatible": false, "multiplier": 0.9942},
+        "3Miles": {"WACompatible": false, "route": "5000m"},
+        "5000m": {"WACompatible": true},
+        "3000msh": {"WACompatible": true},
+        "3200msh": {"WACompatible": false, "route": "2Milessh"},
+        "2Milessh": {"WACompatible": true},
+        "5000msh": {"WACompatible": true}
+    },
+    "2Milessh": {
+        "3000m": {"WACompatible": true},
+        "3200m": {"WACompatible": false, "route": "2Miles"},
+        "2Miles": {"WACompatible": true},
+        "3Miles": {"WACompatible": false, "route": "5000m"},
+        "5000m": {"WACompatible": true},
+        "3000msh": {"WACompatible": true},
+        "3200msh": {"WACompatible": false, "multiplier": 0.9942},
+        "5000msh": {"WACompatible": true}
+    },
+    "3Miles": {
+        "3000m": {"WACompatible": false, "route": "5000m"},
+        "3200m": {"WACompatible": false, "route": "5000m"},
+        "2Miles": {"WACompatible": false, "route": "5000m"},
+        "5000m": {"WACompatible": false, "multiplier": 1.0356},
+        "3000msh": {"WACompatible": false, "route": "5000m"},
+        "3200msh": {"WACompatible": false, "route": "5000m"},
+        "2Milessh": {"WACompatible": false, "route": "5000m"},
+        "5000msh": {"WACompatible": false, "route": "5000m"}
+    },
+    "5000m": {
+        "3000m": {"WACompatible": true},
+        "3200m": {"WACompatible": false, "route": "2Miles"},
+        "2Miles": {"WACompatible": true},
+        "3Miles": {"WACompatible": false, "multiplier": 0.9656},
+        "3000msh": {"WACompatible": true},
+        "3200msh": {"WACompatible": false, "route": "2Miles"},
+        "2Milessh": {"WACompatible": true},
+        "5000msh": {"WACompatible": true},
+        "Road5km": {"WACompatible": true}
+    },
+    "5000msh": {
+        "3000m": {"WACompatible": true},
+        "3200m": {"WACompatible": false, "route": "2Miles"},
+        "2Miles": {"WACompatible": true},
+        "3Miles": {"WACompatible": false, "route": "5000m"},
+        "5000m": {"WACompatible": true},
+        "3000msh": {"WACompatible": true},
+        "3200msh": {"WACompatible": false, "route": "2Milessh"},
+        "2Milessh": {"WACompatible": true}
+    },
+    "Road5km": {
+        "5000m": {"WACompatible": true},
+        "Road3Miles": {"WACompatible": false, "multiplier": 0.9656}
+    },
+    "Road3Miles": {
+        "Road5km": {"WACompatible": false, "multiplier": 1.0356}
+    },
+    "Road6Miles": {
+        "Road10km": {"WACompatible": false, "multiplier": 1.0356}
+    },
+    "10,000m": {
+        "Road10km": {"WACompatible": true}
+    },
+    "Road10km": {
+        "10,000m": {"WACompatible": true},
+        "Road6Miles": {"WACompatible": false, "multiplier": 0.9656},
+        "Road15km": {"WACompatible": true}
+    },
+    "Road15km": {
+        "Road10km": {"WACompatible": true},
+        "Road10Miles": {"WACompatible": true},
+        "Road20km": {"WACompatible": true},
+        "RoadHM": {"WACompatible": true}
+    },
+    "Road10Miles": {
+        "Road15km": {"WACompatible": true},
+        "Road20km": {"WACompatible": true},
+        "RoadHM": {"WACompatible": true}
+    },
+    "Road20km": {
+        "Road15km": {"WACompatible": true},
+        "Road10Miles": {"WACompatible": true},
+        "RoadHM": {"WACompatible": true},
+        "Road25km": {"WACompatible": true}
+    },
+    "RoadHM": {
+        "Road15km": {"WACompatible": true},
+        "Road10Miles": {"WACompatible": true},
+        "Road20km": {"WACompatible": true},
+        "Road25km": {"WACompatible": true}
+    },
+    "Road25km": {
+        "Road20km": {"WACompatible": true},
+        "RoadHM": {"WACompatible": true},
+        "Road30km": {"WACompatible": true}
+    },
+    "Road30km": {
+        "Road25km": {"WACompatible": true},
+        "RoadMarathon": {"WACompatible": true}
+    },
+    "RoadMarathon": {
+        "Road30km": {"WACompatible": true},
+        "Road50km": {"WACompatible": true}
+    },
+    "Road50km": {
+        "RoadMarathon": {"WACompatible": true}
+    },
+    "50mH": {
+        "55mH": {"WACompatible": true},
+        "60mH": {"WACompatible": true},
+        "100mH": {"WACompatible": true},
+        "110mH": {"WACompatible": true}
+    },
+    "55mH": {
+        "50mH": {"WACompatible": true},
+        "60mH": {"WACompatible": true},
+        "100mH": {"WACompatible": true},
+        "110mH": {"WACompatible": true}
+    },
+    "60mH": {
+        "50mH": {"WACompatible": true},
+        "55mH": {"WACompatible": true},
+        "100mH": {"WACompatible": true},
+        "110mH": {"WACompatible": true}
+    },
+    "100mH": {
+        "50mH": {"WACompatible": true},
+        "55mH": {"WACompatible": true},
+        "60mH": {"WACompatible": true}
+    },
+    "110mH": {
+        "50mH": {"WACompatible": true},
+        "55mH": {"WACompatible": true},
+        "60mH": {"WACompatible": true}
+    }
+}

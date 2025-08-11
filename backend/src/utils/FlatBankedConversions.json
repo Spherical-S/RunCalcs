@@ -1,0 +1,13 @@
+{
+    "200msh": {"m_flatToBanked": 0.9824, "w_flatToBanked": 0.9847, "m_underToFlat": 0.9872, "w_underToFlat": 0.9900},
+    "300msh": {"m_flatToBanked": 0.9832, "w_flatToBanked": 0.9860, "m_underToFlat": 0.9890, "w_underToFlat": 0.9918},
+    "400msh": {"m_flatToBanked": 0.9843, "w_flatToBanked": 0.9869, "m_underToFlat": 0.9901, "w_underToFlat": 0.9929},
+    "500msh": {"m_flatToBanked": 0.9848, "w_flatToBanked": 0.9874, "m_underToFlat": 0.9910, "w_underToFlat": 0.9938},
+    "600msh": {"m_flatToBanked": 0.9852, "w_flatToBanked": 0.9879, "m_underToFlat": 0.9915, "w_underToFlat": 0.9943},
+    "800msh": {"m_flatToBanked": 0.9859, "w_flatToBanked": 0.9886, "m_underToFlat": 0.9923, "w_underToFlat": 0.9951},
+    "1000msh": {"m_flatToBanked": 0.9864, "w_flatToBanked": 0.9892, "m_underToFlat": 0.9929, "w_underToFlat": 0.9958},
+    "1500msh": {"m_flatToBanked": 0.9872, "w_flatToBanked": 0.9901, "m_underToFlat": 0.9939, "w_underToFlat": 0.9967},
+    "Milesh": {"m_flatToBanked": 0.9874, "w_flatToBanked": 0.9902, "m_underToFlat": 0.9941, "w_underToFlat": 0.9969},
+    "3000msh": {"m_flatToBanked": 0.9885, "w_flatToBanked": 0.9915, "m_underToFlat": 0.9953, "w_underToFlat": 0.9981},
+    "5000msh": {"m_flatToBanked": 0.9894, "w_flatToBanked": 0.9924, "m_underToFlat": 0.9961, "w_underToFlat": 0.9989}
+}

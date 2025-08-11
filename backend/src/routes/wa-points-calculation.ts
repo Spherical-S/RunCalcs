@@ -22,13 +22,14 @@ router.get("/ptstoperf", (req, res) => {
     const gender = String(req.query.gender);
     const event = String(req.query.event);
     const target = Number(req.query.target);
+    const interpolate = Number(req.query.interpolate);
 
-    if (isNaN(target)){
-        return res.status(400).json({error: "Invalid or missing target"});
+    if (isNaN(target) || isNaN(interpolate)){
+        return res.status(400).json({error: "Invalid or missing target or interpolation"});
     }
 
-    if (target < 1 || target > 1400){
-        return res.status(400).json({error: "Target out of bounds (1-1400 inclusive)"});
+    if (target < 1 || target > 1400 || interpolate < 0 || interpolate > 1){
+        return res.status(400).json({error: "Invalid target or interpolation value! (target 0-1400, interpolation 0 or 1)"});
     }
 
     if(!validCategories.includes(category)){
@@ -44,7 +45,7 @@ router.get("/ptstoperf", (req, res) => {
         return res.status(400).json({error: "Invalid or missing event"});
     }
 
-    const result = ptsToPerf(category, gender, event, target);
+    const result = ptsToPerf(category, gender, event, target, interpolate);
 
     res.json(result);
 
@@ -57,11 +58,13 @@ router.get("/perftopts", (req, res) => {
     const event = String(req.query.event);
     const target = Number(req.query.target);
 
-    if (isNaN(target)){
-        return res.status(400).json({error: "Invalid or missing target"});
+    const interpolate = Number(req.query.interpolate);
+
+    if (isNaN(target) || isNaN(interpolate)){
+        return res.status(400).json({error: "Invalid or missing target or interpolation"});
     }
 
-    if (target < 0){
+    if (target < 0 || interpolate < 0 || interpolate > 1){
         return res.status(400).json({error: "Target out of bounds. Must be >= 0"});
     }
 
@@ -78,7 +81,7 @@ router.get("/perftopts", (req, res) => {
         return res.status(400).json({error: "Invalid or missing event"});
     }
 
-    const result = perfToPts(category, gender, event, target);
+    const result = perfToPts(category, gender, event, target, interpolate);
 
     res.json(result);
 

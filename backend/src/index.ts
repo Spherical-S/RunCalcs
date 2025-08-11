@@ -8,6 +8,8 @@ import unitConversionRoute from "./routes/unit-conversion.js";
 import WAPointsCalculationRoute from "./routes/wa-points-calculation.js";
 import splitsCalculatorRoute from "./routes/splits-calculation.js";
 import steepleSplitsCalculatorRoute from "./routes/steeplechase-splits-calculator.js";
+import timeConverterRoute from "./routes/time-converter.js";
+import flatBankedConverterRoute from "./routes/flat-banked-converter.js";
 
 const app = express();
 app.use(cors());
@@ -36,6 +38,8 @@ app.use("/api/unitconversion", unitConversionRoute);
 app.use("/api/wapointscalc", WAPointsCalculationRoute);
 app.use("/api/splitscalc", splitsCalculatorRoute);
 app.use("/api/steeplesplitscalc", steepleSplitsCalculatorRoute);
+app.use("/api/timeconverter", timeConverterRoute);
+app.use("/api/flatbankedconverter", flatBankedConverterRoute);
 
 app.listen(3001, () => {
     console.log("API running on http://localhost:3001");

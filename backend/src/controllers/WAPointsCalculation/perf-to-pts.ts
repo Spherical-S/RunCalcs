@@ -29,7 +29,7 @@ function recursiveBinarySearch(ptsArray: number[][], low: number, high: number, 
 
 }
 
-export default function perfToPts(category: string, gender: string, event: string, target: number): {"points": number}{
+export default function perfToPts(category: string, gender: string, event: string, target: number, interpolate: number): {"points": number}{
 
     const output = {"points": NaN};
 
@@ -62,7 +62,7 @@ export default function perfToPts(category: string, gender: string, event: strin
         output.points = result[0]![1]!;
     }
 
-    if (result.length == 2){
+    if (result.length == 2 && interpolate == 1){
         if(ascending){
             let last_pair = result[0]!;
             let pair = result[1]!;
@@ -78,6 +78,8 @@ export default function perfToPts(category: string, gender: string, event: strin
             let offset = diff * ratio
             output.points = last_pair[1]! - offset;
         }
+    } else if (result.length == 2 && interpolate == 0){
+        output.points = result[0]![1]! <= result[1]![1]! ? result[0]![1]! : result[1]![1]!;
     }
 
     if (!isNaN(output.points)){
