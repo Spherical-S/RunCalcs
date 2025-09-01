@@ -34,16 +34,16 @@ export default function PaceCalculator() {
     const [paceUnit, setPaceUnit] = useState("PacePerKm");
     const [distanceUnit, setDistanceUnit] = useState("km");
 
-    const [hours, setHours] = useState(0);
-    const [minutes, setMinutes] = useState(0);
-    const [seconds, setSeconds] = useState(0);
+    const [hours, setHours] = useState("");
+    const [minutes, setMinutes] = useState("");
+    const [seconds, setSeconds] = useState("");
 
-    const [pacePerHour, setPacePerHour] = useState(0);
-    const [paceHours, setPaceHours] = useState(0);
-    const [paceMinutes, setPaceMinutes] = useState(0);
-    const [paceSeconds, setPaceSeconds] = useState(0);
+    const [pacePerHour, setPacePerHour] = useState("");
+    const [paceHours, setPaceHours] = useState("");
+    const [paceMinutes, setPaceMinutes] = useState("");
+    const [paceSeconds, setPaceSeconds] = useState("");
 
-    const [distance, setDistance] = useState(0);
+    const [distance, setDistance] = useState("");
 
     const [paceCalcResults, setPaceCalcResults] = useState({"PacePerKm": "", "PacePerMi": "", "PaceKm/h": "", "PaceMi/h": ""});
     const [timeCalcResults, setTimeCalcResults] = useState({"Time": ""});
@@ -54,10 +54,10 @@ export default function PaceCalculator() {
         setTimeOpen(false);
         setDistanceOpen(false);
         setDistanceUnit("km");
-        setDistance(0);
-        setHours(0);
-        setMinutes(0);
-        setSeconds(0);
+        setDistance("");
+        setHours("");
+        setMinutes("");
+        setSeconds("");
         setPaceCalcResults({"PacePerKm": "","PacePerMi": "","PaceKm/h": "","PaceMi/h": ""});
     }
 
@@ -67,10 +67,10 @@ export default function PaceCalculator() {
         setDistanceOpen(false);
         setPaceUnit("PacePerKm");
         setDistanceUnit("km");
-        setDistance(0);
-        setPaceHours(0);
-        setPaceMinutes(0);
-        setPaceSeconds(0);
+        setDistance("");
+        setPaceHours("");
+        setPaceMinutes("");
+        setPaceSeconds("");
         setTimeCalcResults({"Time": ""});
     }
 
@@ -79,12 +79,12 @@ export default function PaceCalculator() {
         setTimeOpen(false);
         setDistanceOpen(true);
         setPaceUnit("PacePerKm");
-        setPaceHours(0);
-        setPaceMinutes(0);
-        setPaceSeconds(0);
-        setHours(0);
-        setMinutes(0);
-        setSeconds(0);
+        setPaceHours("");
+        setPaceMinutes("");
+        setPaceSeconds("");
+        setHours("");
+        setMinutes("");
+        setSeconds("");
         setDistanceCalcResults({"km": "", "mi": "", "m": "", "yds": ""});
     }
 
@@ -92,21 +92,26 @@ export default function PaceCalculator() {
 
         setErrorMessage("");
 
-        if(distance <= 0){
+        const dist = distance === "" ? 0 : Number(distance);
+        const hrs = hours === "" ? 0 : Number(hours);
+        const mins = minutes === "" ? 0 : Number(minutes);
+        const secs = seconds === "" ? 0 : Number(seconds);
+
+        if(dist <= 0){
             setErrorMessage("Please provide a distance value greater than 0");
             return;
         }
 
-        if(hours < 0 || minutes < 0 || seconds < 0){
+        if(hrs < 0 || mins < 0 || secs < 0){
             setErrorMessage("Please provide positive time values");
             return;
         }
 
-        var time = seconds + (minutes*60) + (hours * 60 * 60)
+        var time = secs + (mins*60) + (hrs * 60 * 60)
 
         const distUnit = distanceMap[distanceUnit];
 
-        var url = import.meta.env.VITE_API_URL + `/pacecalc/pace?time=${time}&distance=${distance}&unit=${distUnit}`;
+        var url = import.meta.env.VITE_API_URL + `/pacecalc/pace?time=${time}&distance=${dist}&unit=${distUnit}`;
 
         fetch(url)
             .then(res => {
@@ -131,9 +136,13 @@ export default function PaceCalculator() {
 
         setErrorMessage("");
 
-        console.log(""+distance+" "+distanceUnit+" "+paceMinutes+" "+paceUnit);
+        const dist = distance === "" ? 0 : Number(distance);
+        const phrs = paceHours === "" ? 0 : Number(paceHours);
+        const pmins = paceMinutes === "" ? 0 : Number(paceMinutes);
+        const psecs = paceSeconds === "" ? 0 : Number(paceSeconds);
+        const pperhr = pacePerHour === "" ? 0 : Number(pacePerHour);
 
-        if(distance < 0){
+        if(dist < 0){
             setErrorMessage("Please provide a positive distance value");
             return;
         }
@@ -145,20 +154,20 @@ export default function PaceCalculator() {
         var p = 0;
 
         if(pUnit === 0 || pUnit === 1){
-            if(paceHours < 0 || paceMinutes < 0 || paceSeconds < 0){
+            if(phrs < 0 || pmins < 0 || psecs < 0){
                 setErrorMessage("Please provide positive pace values");
                 return;
             }
 
-            p = paceSeconds + (paceMinutes*60) + (paceHours * 60 * 60);
+            p = psecs + (pmins*60) + (phrs * 60 * 60);
 
         }else{
-            if(pacePerHour < 0){
+            if(pperhr < 0){
                 setErrorMessage("Please provide positive pace values");
                 return;
             }
 
-            p = pacePerHour
+            p = pperhr;
 
         }
 
@@ -186,32 +195,40 @@ export default function PaceCalculator() {
         
         setErrorMessage("");
 
-        if(hours < 0 || minutes < 0 || seconds < 0){
+        const hrs = hours === "" ? 0 : Number(hours);
+        const mins = minutes === "" ? 0 : Number(minutes);
+        const secs = seconds === "" ? 0 : Number(seconds);
+        const phrs = paceHours === "" ? 0 : Number(paceHours);
+        const pmins = paceMinutes === "" ? 0 : Number(paceMinutes);
+        const psecs = paceSeconds === "" ? 0 : Number(paceSeconds);
+        const pperhr = pacePerHour === "" ? 0 : Number(pacePerHour);
+
+        if(hrs < 0 || mins < 0 || secs < 0){
             setErrorMessage("Please provide positive time values");
             return;
         }
 
-        var time = seconds + (minutes*60) + (hours * 60 * 60)
+        var time = secs + (mins*60) + (hrs * 60 * 60)
 
         const pUnit = paceMap[paceUnit];
 
         var p = 0;
 
         if(pUnit === 0 || pUnit === 1){
-            if(paceHours < 0 || paceMinutes < 0 || paceSeconds < 0){
+            if(phrs < 0 || pmins < 0 || psecs < 0){
                 setErrorMessage("Please provide positive pace values");
                 return;
             }
 
-            p = paceSeconds + (paceMinutes*60) + (paceHours * 60 * 60);
+            p = psecs + (pmins*60) + (phrs * 60 * 60);
 
         }else{
-            if(pacePerHour < 0){
+            if(pperhr < 0){
                 setErrorMessage("Please provide positive pace values");
                 return;
             }
 
-            p = pacePerHour
+            p = pperhr;
 
         }
 
@@ -268,17 +285,17 @@ export default function PaceCalculator() {
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Time (hh:mm:ss.ss)</label>
                                 <div className="flex gap-2">
 
-                                    <input type="number" placeholder="hh" value={hours} onChange={(e) => setHours(Number(e.target.value))}
+                                    <input type="number" placeholder="hh" value={hours} onChange={(e) => setHours(e.target.value)}
                                     className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                     <span className="self-center">:</span>
 
-                                    <input type="number" placeholder="mm" value={minutes} onChange={(e) => setMinutes(Number(e.target.value))}
+                                    <input type="number" placeholder="mm" value={minutes} onChange={(e) => setMinutes(e.target.value)}
                                     className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                     <span className="self-center">:</span>
 
-                                    <input type="number" placeholder="ss" value={seconds} onChange={(e) => setSeconds(Number(e.target.value))}
+                                    <input type="number" placeholder="ss" value={seconds} onChange={(e) => setSeconds(e.target.value)}
                                     className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                 </div>
@@ -288,7 +305,7 @@ export default function PaceCalculator() {
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Distance</label>
                                 <div className="flex gap-2">
-                                    <input type="number" placeholder="0" value={distance} onChange={(e) => setDistance(Number(e.target.value))}
+                                    <input type="number" placeholder="0" value={distance} onChange={(e) => setDistance(e.target.value)}
                                     className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
 
                                     <select value={distanceUnit} onChange={(e) => setDistanceUnit(e.target.value)}
@@ -346,24 +363,24 @@ export default function PaceCalculator() {
 
                                     {(paceUnit === "PacePerKm" || paceUnit === "PacePerMi") &&(
                                         <>
-                                        <input type="number" placeholder="hh" value={paceHours} onChange={(e) => setPaceHours(Number(e.target.value))}
+                                        <input type="number" placeholder="hh" value={paceHours} onChange={(e) => setPaceHours(e.target.value)}
                                         className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                         <span className="self-center">:</span>
 
-                                        <input type="number" placeholder="mm" value={paceMinutes} onChange={(e) => setPaceMinutes(Number(e.target.value))}
+                                        <input type="number" placeholder="mm" value={paceMinutes} onChange={(e) => setPaceMinutes(e.target.value)}
                                         className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                         <span className="self-center">:</span>
 
-                                        <input type="number" placeholder="ss" value={paceSeconds} onChange={(e) => setPaceSeconds(Number(e.target.value))}
+                                        <input type="number" placeholder="ss" value={paceSeconds} onChange={(e) => setPaceSeconds(e.target.value)}
                                         className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
                                         </>
                                     )}
 
                                     {(paceUnit === "PaceKm/h" || paceUnit === "PaceMi/h") &&(
                                         <>
-                                        <input type="number" placeholder="0" value={pacePerHour} onChange={(e) => setPacePerHour(Number(e.target.value))}
+                                        <input type="number" placeholder="0" value={pacePerHour} onChange={(e) => setPacePerHour(e.target.value)}
                                         className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
                                         </>
                                     )}
@@ -384,7 +401,7 @@ export default function PaceCalculator() {
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Distance</label>
                                 <div className="flex gap-2">
-                                    <input type="number" placeholder="0" value={distance} onChange={(e) => setDistance(Number(e.target.value))}
+                                    <input type="number" placeholder="0" value={distance} onChange={(e) => setDistance(e.target.value)}
                                     className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
 
                                     <select value={distanceUnit} onChange={(e) => setDistanceUnit(e.target.value)}
@@ -429,24 +446,24 @@ export default function PaceCalculator() {
 
                                     {(paceUnit === "PacePerKm" || paceUnit === "PacePerMi") &&(
                                         <>
-                                        <input type="number" placeholder="hh" value={paceHours} onChange={(e) => setPaceHours(Number(e.target.value))}
+                                        <input type="number" placeholder="hh" value={paceHours} onChange={(e) => setPaceHours(e.target.value)}
                                         className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                         <span className="self-center">:</span>
 
-                                        <input type="number" placeholder="mm" value={paceMinutes} onChange={(e) => setPaceMinutes(Number(e.target.value))}
+                                        <input type="number" placeholder="mm" value={paceMinutes} onChange={(e) => setPaceMinutes(e.target.value)}
                                         className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                         <span className="self-center">:</span>
 
-                                        <input type="number" placeholder="ss" value={paceSeconds} onChange={(e) => setPaceSeconds(Number(e.target.value))}
+                                        <input type="number" placeholder="ss" value={paceSeconds} onChange={(e) => setPaceSeconds(e.target.value)}
                                         className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
                                         </>
                                     )}
 
                                     {(paceUnit === "PaceKm/h" || paceUnit === "PaceMi/h") &&(
                                         <>
-                                        <input type="number" placeholder="0" value={pacePerHour} onChange={(e) => setPacePerHour(Number(e.target.value))}
+                                        <input type="number" placeholder="0" value={pacePerHour} onChange={(e) => setPacePerHour(e.target.value)}
                                         className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
                                         </>
                                     )}
@@ -468,17 +485,17 @@ export default function PaceCalculator() {
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Time (hh:mm:ss.ss)</label>
                                 <div className="flex gap-2">
 
-                                    <input type="number" placeholder="hh" value={hours} onChange={(e) => setHours(Number(e.target.value))}
+                                    <input type="number" placeholder="hh" value={hours} onChange={(e) => setHours(e.target.value)}
                                     className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                     <span className="self-center">:</span>
 
-                                    <input type="number" placeholder="mm" value={minutes} onChange={(e) => setMinutes(Number(e.target.value))}
+                                    <input type="number" placeholder="mm" value={minutes} onChange={(e) => setMinutes(e.target.value)}
                                     className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                     <span className="self-center">:</span>
 
-                                    <input type="number" placeholder="ss" value={seconds} onChange={(e) => setSeconds(Number(e.target.value))}
+                                    <input type="number" placeholder="ss" value={seconds} onChange={(e) => setSeconds(e.target.value)}
                                     className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                 </div>
