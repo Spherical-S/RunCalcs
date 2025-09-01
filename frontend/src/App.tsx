@@ -1,21 +1,34 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { Routes, Route } from "react-router-dom";
 
-function App() {
-  const [ping, setAPIStatus] = useState("");
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
-  useEffect(() => {
-    axios.get("http://localhost:3001/api/ping")
-      .then(res => setAPIStatus(res.data.result))
-      .catch(err => console.error("Error fetching ping (API may be offline):", err));
-  }, []);
+import Home from "./pages/Home";
+import PaceCalculator from "./pages/PaceCalculator";
+import UnitConverter from "./pages/UnitConverter";
+import WAPointsCalculator from "./pages/WAPointsCalculator";
+import SplitsCalculator from "./pages/SplitsCalculator";
+import SteepleLapsCalculator from "./pages/SteepleLapsCalculator";
+import EventConversionTool from "./pages/EventConversionTool";
+import FlatBankedTrackConverter from "./pages/FlatBankedTrackConverter";
 
+export default function App() {
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Running Calculator</h1>
-      <p>API Network Status: <strong>{ping}</strong></p>
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pace" element={<PaceCalculator />} />
+          <Route path="/units" element={<UnitConverter />} />
+          <Route path="/wa-points" element={<WAPointsCalculator />} />
+          <Route path="/splits" element={<SplitsCalculator />} />
+          <Route path="/steeple-laps" element={<SteepleLapsCalculator />} />
+          <Route path="/events" element={<EventConversionTool />} />
+          <Route path="/flat-banked-track" element={<FlatBankedTrackConverter />} />
+        </Routes>
+      </main>
+      <Footer />
     </div>
   );
 }
-
-export default App;
