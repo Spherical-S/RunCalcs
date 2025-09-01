@@ -10,9 +10,11 @@ type propTypes = {
 export default function({label, color, hoverColor, redirect}: propTypes){
 
     return(
-        <Link to={redirect}>
-            <button className={`w-3/4 px-5 py-2 ${color} text-white rounded cursor-pointer mb-3 ${hoverColor}`}>{label}</button>
-        </Link>
+        <div>
+            <Link to={redirect} className="">
+                <button className={`w-3/4 px-5 py-2 ${color} text-white rounded cursor-pointer mb-3 ${hoverColor}`}>{label}</button>
+            </Link>
+        </div>
     );
 
 }
