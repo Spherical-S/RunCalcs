@@ -45,9 +45,9 @@ export default function PaceCalculator() {
 
     const [distance, setDistance] = useState(0);
 
-    const [paceCalcResults, setPaceCalcResults] = useState({"HaveResults": false, "PacePerKm": "", "PacePerMi": "", "PaceKm/h": "", "PaceMi/h": ""});
-    const [timeCalcResults, setTimeCalcResults] = useState({"HaveResults": false, "Time": ""});
-    const [distanceCalcResults, setDistanceCalcResults] = useState({"HaveResults": false, "km": "", "mi": "", "m": "", "yds": ""});
+    const [paceCalcResults, setPaceCalcResults] = useState({"PacePerKm": "", "PacePerMi": "", "PaceKm/h": "", "PaceMi/h": ""});
+    const [timeCalcResults, setTimeCalcResults] = useState({"Time": ""});
+    const [distanceCalcResults, setDistanceCalcResults] = useState({"km": "", "mi": "", "m": "", "yds": ""});
 
     function handlePaceClick(){
         setPaceOpen(true);
@@ -58,7 +58,7 @@ export default function PaceCalculator() {
         setHours(0);
         setMinutes(0);
         setSeconds(0);
-        setPaceCalcResults({"HaveResults": false,"PacePerKm": "","PacePerMi": "","PaceKm/h": "","PaceMi/h": ""});
+        setPaceCalcResults({"PacePerKm": "","PacePerMi": "","PaceKm/h": "","PaceMi/h": ""});
     }
 
     function handleTimeClick(){
@@ -71,7 +71,7 @@ export default function PaceCalculator() {
         setPaceHours(0);
         setPaceMinutes(0);
         setPaceSeconds(0);
-        setTimeCalcResults({"HaveResults": false, "Time": ""});
+        setTimeCalcResults({"Time": ""});
     }
 
     function handleDistanceClick(){
@@ -85,15 +85,7 @@ export default function PaceCalculator() {
         setHours(0);
         setMinutes(0);
         setSeconds(0);
-        setDistanceCalcResults({"HaveResults": false, "km": "", "mi": "", "m": "", "yds": ""});
-    }
-
-    function handlePaceUnitChange(e: any){
-        setPaceUnit(e.target.value);
-    }
-
-    function handleDistanceUnitChange(e: any){
-        setDistanceUnit(e.target.value);
+        setDistanceCalcResults({"km": "", "mi": "", "m": "", "yds": ""});
     }
 
     function handleSubmitPaceCalculation(){
@@ -126,7 +118,7 @@ export default function PaceCalculator() {
             .then(data => {
                 var pacePerKmFormatted = formatSecToPace(Number(data.secPerKm));
                 var pacePerMiFormatted = formatSecToPace(Number(data.secPerMi));
-                setPaceCalcResults({"HaveResults": true, "PacePerKm": pacePerKmFormatted, "PacePerMi": pacePerMiFormatted,"PaceKm/h": data.KmsPerHour, "PaceMi/h": data.MisPerHour});
+                setPaceCalcResults({"PacePerKm": pacePerKmFormatted, "PacePerMi": pacePerMiFormatted,"PaceKm/h": data.KmsPerHour, "PaceMi/h": data.MisPerHour});
             })
             .catch(err => {
                 console.error("API request failed:", err.message);
@@ -138,6 +130,8 @@ export default function PaceCalculator() {
     function handleSubmitTimeCalculation(){
 
         setErrorMessage("");
+
+        console.log(""+distance+" "+distanceUnit+" "+paceMinutes+" "+paceUnit);
 
         if(distance < 0){
             setErrorMessage("Please provide a positive distance value");
@@ -180,7 +174,7 @@ export default function PaceCalculator() {
             })
             .then(data => {
                 var timeFormatted = formatSecToPace(Number(data.time));
-                setTimeCalcResults({"HaveResults": true, "Time": timeFormatted});
+                setTimeCalcResults({"Time": timeFormatted});
             })
             .catch(err => {
                 console.error("API request failed:", err.message);
@@ -236,7 +230,7 @@ export default function PaceCalculator() {
                 return res.json();
             })
             .then(data => {
-                setDistanceCalcResults({"HaveResults": true, "km": data.km, "mi": data.mi, "m": data.m, "yds": data.yds});
+                setDistanceCalcResults({"km": data.km, "mi": data.mi, "m": data.m, "yds": data.yds});
             })
             .catch(err => {
                 console.error("API request failed:", err.message);
@@ -247,218 +241,283 @@ export default function PaceCalculator() {
 
     return(
 
-        <div className="flex flex-col gap-2 text-center relative">
-            <h1 className="font-sans font-bold text-4xl m-2">Pace Calculator</h1>
-
-            <p className="font-sans font-semibold text-red-900">{errorMessage}</p>
+        <div className="flex flex-col gap-2 relative">
+            <h1 className="font-sans font-bold text-4xl m-2 text-center">Pace Calculation Tools</h1>
 
             {/*Page body*/}
-            <div className="flex flex-col text-center mx-auto">
+            <div className="flex flex-col">
 
                 {/*Mode select buttons*/}
-                <div>
-                    <button onClick={handlePaceClick} className={`${paceOpen ? "bg-gray-200 hover:bg-gray-600":"bg-cyan-600 hover:bg-gray-200"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Pace</button>
-                    <button onClick={handleTimeClick} className={`${timeOpen ? "bg-gray-200 hover:bg-gray-600":"bg-cyan-600 hover:bg-gray-200"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Time</button>
-                    <button onClick={handleDistanceClick} className={`${distanceOpen ? "bg-gray-200 hover:bg-gray-600":"bg-cyan-600 hover:bg-2ray-400"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Distance</button>
+                <div className="text-center">
+                    <button onClick={handlePaceClick} className={`${paceOpen ? "bg-white hover:bg-gray-600 border-b-white":"bg-cyan-600 hover:bg-white"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Pace</button>
+                    <button onClick={handleTimeClick} className={`${timeOpen ? "bg-white hover:bg-gray-600 border-b-white":"bg-cyan-600 hover:bg-white"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Time</button>
+                    <button onClick={handleDistanceClick} className={`${distanceOpen ? "bg-white hover:bg-gray-600 border-b-white":"bg-cyan-600 hover:bg-white"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Distance</button>
                 </div>
 
                 {/*Calculator body*/}
-                <div className="relative h-130 w-170 shadow-2xl bg-gray-200 rounded-2xl">
+                <div className="relative">
 
                     {/*Pace Calculator*/}
-                    <div className={`absolute top-0 left-0 m-4 w-full h-full flex-col justify-center gap-4 space-y-6 transition-opacity duration-200${paceOpen ? "visible opacity-100":"invisible opacity-0 pointer-events-none"}`}>
+                    {paceOpen && (
+                        <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-6">
+                        <h2 className="text-xl font-bold text-gray-800">Pace Calculator</h2>
 
-                        {/*Time input row*/}
-                        <div className="flex justify-center gap-8">
+                        <div className="space-y-4">
+                            {/* Time inputs */}
                             <div>
-                                <p>Hours (total time):</p>
-                                <input className="bg-white rounded border-1 border-gray-600 w-45" type="number" placeholder="0" value={hours} onChange={(e) => setHours(Number(e.target.value))} />
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Time (hh:mm:ss.ss)</label>
+                                <div className="flex gap-2">
+
+                                    <input type="number" placeholder="hh" value={hours} onChange={(e) => setHours(Number(e.target.value))}
+                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+
+                                    <span className="self-center">:</span>
+
+                                    <input type="number" placeholder="mm" value={minutes} onChange={(e) => setMinutes(Number(e.target.value))}
+                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+
+                                    <span className="self-center">:</span>
+
+                                    <input type="number" placeholder="ss" value={seconds} onChange={(e) => setSeconds(Number(e.target.value))}
+                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+
+                                </div>
                             </div>
+
+                            {/* Distance input */}
                             <div>
-                                <p>Minutes (total time):</p>
-                                <input className="bg-white rounded border-1 border-gray-600 w-45" type="number" placeholder="0" value={minutes} onChange={(e) => setMinutes(Number(e.target.value))} />
-                            </div>
-                            <div>
-                                <p>Seconds (total time):</p>
-                                <input className="bg-white rounded border-1 border-gray-600 w-45" type="number" placeholder="0" value={seconds} onChange={(e) => setSeconds(Number(e.target.value))} />
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Distance</label>
+                                <div className="flex gap-2">
+                                    <input type="number" placeholder="0" value={distance} onChange={(e) => setDistance(Number(e.target.value))}
+                                    className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
+
+                                    <select value={distanceUnit} onChange={(e) => setDistanceUnit(e.target.value)}
+                                    className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
+                                        <option value="km">km</option>
+                                        <option value="mi">mi</option>
+                                        <option value="m">m</option>
+                                        <option value="yds">yds</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
-                        {/*Distance and units input row*/}
-                        <div className="grid grid-cols-[36.5%_27%_36.5%] items-center">
-                            <p className="text-right pr-6">Distance:</p>
-                            <input className="bg-white rounded border-1 border-gray-600 w-45" type="number" placeholder="0" value={distance} onChange={(e) => setDistance(Number(e.target.value))} />
-                            <select onChange={handleDistanceUnitChange} className={"bg-white rounded border-1 border-gray-600 ml-2 w-min"}>
-                                <option value="km">Km</option>
-                                <option value="mi">Mi</option>
-                                <option value="m">m</option>
-                                <option value="yds">yds</option>
-                            </select>
-                        </div>
+                        <button onClick={handleSubmitPaceCalculation}
+                            className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Calculate Pace</button>
 
-                        {/*Results display row*/}
-                        <div className="min-h-81.5 items-center justify-center flex">
-                            <div className={`flex-col ${paceCalcResults.HaveResults ? "visible opacity-100":"invisible opacity-0"}`}>
-                                <p>Pace per Km: {paceCalcResults.PacePerKm}</p>
-                                <p>Pace per Mi: {paceCalcResults.PacePerMi}</p>
-                                <p>Pace Km/h: {paceCalcResults["PaceKm/h"]}</p>
-                                <p>Pace Mi/h: {paceCalcResults["PaceMi/h"]}</p>
+                        {errorMessage && (
+                            <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded">{errorMessage}</div>
+                        )}
+
+                        {paceCalcResults && (
+                            <div className="bg-gray-50 border rounded-xl p-4 space-y-2">
+                                <p>
+                                    <span className="font-semibold">Pace per km:</span>{" "}
+                                    <span className="text-cyan-700">{paceCalcResults.PacePerKm}</span>
+                                </p>
+                                <p>
+                                    <span className="font-semibold">Pace per mi:</span>{" "}
+                                    <span className="text-cyan-700">{paceCalcResults.PacePerMi}</span>
+                                </p>
+                                <p>
+                                    <span className="font-semibold">Speed (km/h):</span>{" "}
+                                    <span className="text-cyan-700">{paceCalcResults["PaceKm/h"]}</span>
+                                </p>
+                                <p>
+                                    <span className="font-semibold">Speed (mph):</span>{" "}
+                                    <span className="text-cyan-700">{paceCalcResults["PaceMi/h"]}</span>
+                                </p>
                             </div>
-                        </div>
-
-                        <button onClick={handleSubmitPaceCalculation} className="bg-cyan-600 rounded-2xl font-bold text-gray-800 py-3 px-6 mb-4 hover:cursor-pointer hover:bg-cyan-800">Calculate</button>
-                    
+                        )}
                     </div>
+
+                    )}
 
                     {/*Time calculator*/}
-                    <div className={`absolute top-0 left-0 w-full h-full flex-col justify-center gap-3 transition-opacity duration-200${timeOpen ? "visible opacity-100":"invisible opacity-0 pointer-events-none"}`}>
+                    {timeOpen && (
+                        <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-6">
+                        <h2 className="text-xl font-bold text-gray-800">Time Calculator</h2>
 
-                        {/*Distance and units input row*/}
-                        <div className="grid grid-cols-[35.5%_29%_35.5%] items-center m-4 mb-8">
-                            <p className="text-right pr-6">Distance:</p>
-                            <input className="bg-white rounded border-1 border-gray-600 w-45" type="number" placeholder="0" value={distance} onChange={(e) => setDistance(Number(e.target.value))} />
-                            <select onChange={handleDistanceUnitChange} className={"bg-white rounded border-1 border-gray-600 ml-2 w-min"}>
-                                <option value="km">Km</option>
-                                <option value="mi">Mi</option>
-                                <option value="m">m</option>
-                                <option value="yds">yds</option>
-                            </select>
-                        </div>
-
-                        {/*Pace unit selection row*/}
-                        <div className="flex justify-center gap-4 mb-4">
-                            <label>
-                                <input type="radio" value="PacePerKm" checked={paceUnit === "PacePerKm"} onClick={handlePaceUnitChange}/>
-                                Pace per Km
-                            </label>
-                            <label>
-                                <input type="radio" value="PacePerMi" checked={paceUnit === "PacePerMi"} onClick={handlePaceUnitChange}/>
-                                Pace per Mi
-                            </label>
-                            <label>
-                                <input type="radio" value="PaceKm/h" checked={paceUnit === "PaceKm/h"} onClick={handlePaceUnitChange}/>
-                                Pace Km/h
-                            </label>
-                            <label>
-                                <input type="radio" value="PaceMi/h" checked={paceUnit === "PaceMi/h"} onClick={handlePaceUnitChange}/>
-                                Pace Mi/h
-                            </label>
-                        </div>
-
-                        {/*Pace entry row */}
-                        <div>
-                            {/*Time input row*/}
-                            <div className="flex justify-center m-4 gap-8">
-                                <div>
-                                    <p>Hours (pace):</p>
-                                    <input className={`rounded border-1 border-gray-600 w-45 transition-colors duration-300 ${paceUnit === "PacePerKm" || paceUnit === "PacePerMi" ? "bg-white":"bg-gray-500 cursor-not-allowed"}`} disabled={!(paceUnit === "PacePerKm" || paceUnit === "PacePerMi")} type="number" value={paceHours} placeholder="0" onChange={(e) => setPaceHours(Number(e.target.value))} />
-                                </div>
-                                <div>
-                                    <p>Minutes (pace):</p>
-                                    <input className={`rounded border-1 border-gray-600 w-45 transition-colors duration-300 ${paceUnit === "PacePerKm" || paceUnit === "PacePerMi" ? "bg-white":"bg-gray-500 cursor-not-allowed"}`} disabled={!(paceUnit === "PacePerKm" || paceUnit === "PacePerMi")} type="number" value={paceMinutes} placeholder="0" onChange={(e) => setPaceMinutes(Number(e.target.value))} />
-                                </div>
-                                <div>
-                                    <p>Seconds (pace):</p>
-                                    <input className={`rounded border-1 border-gray-600 w-45 transition-colors duration-300 ${paceUnit === "PacePerKm" || paceUnit === "PacePerMi" ? "bg-white":"bg-gray-500 cursor-not-allowed"}`} disabled={!(paceUnit === "PacePerKm" || paceUnit === "PacePerMi")} type="number" value={paceSeconds} placeholder="0" onChange={(e) => setPaceSeconds(Number(e.target.value))} />
-                                </div>
-                            </div>
+                        <div className="space-y-4">
+                            {/* Pace inputs */}
                             <div>
-                                <p>Pace per hour:</p>
-                                <input className={`rounded border-1 border-gray-600 w-45 transition-colors duration-300 ${paceUnit === "PaceKm/h" || paceUnit === "PaceMi/h" ? "bg-white":"bg-gray-500 cursor-not-allowed"}`} disabled={!(paceUnit === "PaceKm/h" || paceUnit === "PaceMi/h")} type="number" value={pacePerHour} placeholder="0" onChange={(e) => setPacePerHour(Number(e.target.value))} />
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Pace{(paceUnit === "PacePerKm" || paceUnit === "PacePerMi") ? " (hh:mm:ss.ss)":""}</label>
+                                <div className="flex gap-2">
+
+                                    {(paceUnit === "PacePerKm" || paceUnit === "PacePerMi") &&(
+                                        <>
+                                        <input type="number" placeholder="hh" value={paceHours} onChange={(e) => setPaceHours(Number(e.target.value))}
+                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+
+                                        <span className="self-center">:</span>
+
+                                        <input type="number" placeholder="mm" value={paceMinutes} onChange={(e) => setPaceMinutes(Number(e.target.value))}
+                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+
+                                        <span className="self-center">:</span>
+
+                                        <input type="number" placeholder="ss" value={paceSeconds} onChange={(e) => setPaceSeconds(Number(e.target.value))}
+                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                        </>
+                                    )}
+
+                                    {(paceUnit === "PaceKm/h" || paceUnit === "PaceMi/h") &&(
+                                        <>
+                                        <input type="number" placeholder="0" value={pacePerHour} onChange={(e) => setPacePerHour(Number(e.target.value))}
+                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                        </>
+                                    )}
+                                    
+
+                                    <select value={paceUnit} onChange={(e) => setPaceUnit(e.target.value)}
+                                    className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
+                                        <option value="PacePerKm">Per km</option>
+                                        <option value="PacePerMi">Per mi</option>
+                                        <option value="PaceKm/h">km/h</option>
+                                        <option value="PaceMi/h">mi/h</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            {/* Distance input */}
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Distance</label>
+                                <div className="flex gap-2">
+                                    <input type="number" placeholder="0" value={distance} onChange={(e) => setDistance(Number(e.target.value))}
+                                    className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
+
+                                    <select value={distanceUnit} onChange={(e) => setDistanceUnit(e.target.value)}
+                                    className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
+                                        <option value="km">km</option>
+                                        <option value="mi">mi</option>
+                                        <option value="m">m</option>
+                                        <option value="yds">yds</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
-                        {/*Results display row*/}
-                        <div className="min-h-55 items-center justify-center flex">
-                            <p className={`${timeCalcResults.HaveResults ? "visible opacity-100":"invisible opacity-0"}`}>Time: {timeCalcResults.Time}</p>
-                        </div>
+                        <button onClick={handleSubmitTimeCalculation}
+                            className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Calculate Time</button>
 
-                        <button onClick={handleSubmitTimeCalculation} className="bg-cyan-600 rounded-2xl font-bold text-gray-800 py-3 px-6 mb-4 hover:cursor-pointer hover:bg-cyan-800">Calculate</button>
+                        {errorMessage && (
+                            <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded">{errorMessage}</div>
+                        )}
 
+                        {timeCalcResults && (
+                            <div className="bg-gray-50 border rounded-xl p-4 space-y-2">
+                                <p>
+                                    <span className="font-semibold">Time:</span>{" "}
+                                    <span className="text-cyan-700">{timeCalcResults.Time}</span>
+                                </p>
+                            </div>
+                        )}
                     </div>
+                    )}
 
                     {/*Distance calculator*/}
-                    <div className={`absolute top-0 left-0 w-full h-full flex-col justify-center gap-3 transition-opacity duration-200${distanceOpen ? "visible opacity-100":"invisible opacity-0 pointer-events-none"}`}>
+                    {distanceOpen && (
+                        <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-6">
+                        <h2 className="text-xl font-bold text-gray-800">Distance Calculator</h2>
 
-                        {/*Time input row*/}
-                        <div className="flex justify-center m-4 mb-8 gap-8">
+                        <div className="space-y-4">
+                            {/* Pace inputs */}
                             <div>
-                                <p>Hours (total time):</p>
-                                <input className="bg-white rounded border-1 border-gray-600 w-45" type="number" value={hours} placeholder="0" onChange={(e) => setHours(Number(e.target.value))} />
-                            </div>
-                            <div>
-                                <p>Minutes (total time):</p>
-                                <input className="bg-white rounded border-1 border-gray-600 w-45" type="number" value={minutes} placeholder="0" onChange={(e) => setMinutes(Number(e.target.value))} />
-                            </div>
-                            <div>
-                                <p>Seconds (total time):</p>
-                                <input className="bg-white rounded border-1 border-gray-600 w-45" type="number" value={seconds} placeholder="0" onChange={(e) => setSeconds(Number(e.target.value))} />
-                            </div>
-                        </div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Pace{(paceUnit === "PacePerKm" || paceUnit === "PacePerMi") ? " (hh:mm:ss.ss)":""}</label>
+                                <div className="flex gap-2">
 
-                        {/*Pace unit selection row*/}
-                        <div className="flex justify-center gap-4 mb-4">
-                            <label>
-                                <input type="radio" value="PacePerKm" checked={paceUnit === "PacePerKm"} onClick={handlePaceUnitChange}/>
-                                Pace per Km
-                            </label>
-                            <label>
-                                <input type="radio" value="PacePerMi" checked={paceUnit === "PacePerMi"} onClick={handlePaceUnitChange}/>
-                                Pace per Mi
-                            </label>
-                            <label>
-                                <input type="radio" value="PaceKm/h" checked={paceUnit === "PaceKm/h"} onClick={handlePaceUnitChange}/>
-                                Pace Km/h
-                            </label>
-                            <label>
-                                <input type="radio" value="PaceMi/h" checked={paceUnit === "PaceMi/h"} onClick={handlePaceUnitChange}/>
-                                Pace Mi/h
-                            </label>
-                        </div>
+                                    {(paceUnit === "PacePerKm" || paceUnit === "PacePerMi") &&(
+                                        <>
+                                        <input type="number" placeholder="hh" value={paceHours} onChange={(e) => setPaceHours(Number(e.target.value))}
+                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
-                        {/*Pace entry row */}
-                        <div>
-                            {/*Time input row*/}
-                            <div className="flex justify-center m-4 gap-8">
-                                <div>
-                                    <p>Hours (pace):</p>
-                                    <input className={`rounded border-1 border-gray-600 w-45 transition-colors duration-300 ${paceUnit === "PacePerKm" || paceUnit === "PacePerMi" ? "bg-white":"bg-gray-500 cursor-not-allowed"}`} disabled={!(paceUnit === "PacePerKm" || paceUnit === "PacePerMi")} type="number" value={paceHours} placeholder="0" onChange={(e) => setPaceHours(Number(e.target.value))} />
-                                </div>
-                                <div>
-                                    <p>Minutes (pace):</p>
-                                    <input className={`rounded border-1 border-gray-600 w-45 transition-colors duration-300 ${paceUnit === "PacePerKm" || paceUnit === "PacePerMi" ? "bg-white":"bg-gray-500 cursor-not-allowed"}`} disabled={!(paceUnit === "PacePerKm" || paceUnit === "PacePerMi")} type="number" value={paceMinutes} placeholder="0" onChange={(e) => setPaceMinutes(Number(e.target.value))} />
-                                </div>
-                                <div>
-                                    <p>Seconds (pace):</p>
-                                    <input className={`rounded border-1 border-gray-600 w-45 transition-colors duration-300 ${paceUnit === "PacePerKm" || paceUnit === "PacePerMi" ? "bg-white":"bg-gray-500 cursor-not-allowed"}`} disabled={!(paceUnit === "PacePerKm" || paceUnit === "PacePerMi")} type="number" value={paceSeconds} placeholder="0" onChange={(e) => setPaceSeconds(Number(e.target.value))} />
+                                        <span className="self-center">:</span>
+
+                                        <input type="number" placeholder="mm" value={paceMinutes} onChange={(e) => setPaceMinutes(Number(e.target.value))}
+                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+
+                                        <span className="self-center">:</span>
+
+                                        <input type="number" placeholder="ss" value={paceSeconds} onChange={(e) => setPaceSeconds(Number(e.target.value))}
+                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                        </>
+                                    )}
+
+                                    {(paceUnit === "PaceKm/h" || paceUnit === "PaceMi/h") &&(
+                                        <>
+                                        <input type="number" placeholder="0" value={pacePerHour} onChange={(e) => setPacePerHour(Number(e.target.value))}
+                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                        </>
+                                    )}
+                                    
+
+                                    <select value={paceUnit} onChange={(e) => setPaceUnit(e.target.value)}
+                                    className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
+                                        <option value="PacePerKm">Per km</option>
+                                        <option value="PacePerMi">Per mi</option>
+                                        <option value="PaceKm/h">km/h</option>
+                                        <option value="PaceMi/h">mi/h</option>
+                                    </select>
+
                                 </div>
                             </div>
+
+                            {/* Time inputs */}
                             <div>
-                                <p>Pace per hour:</p>
-                                <input className={`rounded border-1 border-gray-600 w-45 transition-colors duration-300 ${paceUnit === "PaceKm/h" || paceUnit === "PaceMi/h" ? "bg-white":"bg-gray-500 cursor-not-allowed"}`} disabled={!(paceUnit === "PaceKm/h" || paceUnit === "PaceMi/h")} type="number" value={pacePerHour} placeholder="0" onChange={(e) => setPacePerHour(Number(e.target.value))} />
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Time (hh:mm:ss.ss)</label>
+                                <div className="flex gap-2">
+
+                                    <input type="number" placeholder="hh" value={hours} onChange={(e) => setHours(Number(e.target.value))}
+                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+
+                                    <span className="self-center">:</span>
+
+                                    <input type="number" placeholder="mm" value={minutes} onChange={(e) => setMinutes(Number(e.target.value))}
+                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+
+                                    <span className="self-center">:</span>
+
+                                    <input type="number" placeholder="ss" value={seconds} onChange={(e) => setSeconds(Number(e.target.value))}
+                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+
+                                </div>
                             </div>
                         </div>
 
-                        {/*Results display row*/}
-                        <div className="min-h-47 items-center justify-center flex">
-                            <div className={`flex-col ${distanceCalcResults.HaveResults ? "visible opacity-100":"invisible opacity-0"}`}>
-                                <p>Kilometers: {distanceCalcResults.km}</p>
-                                <p>Miles: {distanceCalcResults.mi}</p>
-                                <p>Meters: {distanceCalcResults.m}</p>
-                                <p>Yards: {distanceCalcResults.yds}</p>
+                        <button onClick={handleSubmitDistanceCalculation}
+                            className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Calculate Distance</button>
+
+                        {errorMessage && (
+                            <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded">{errorMessage}</div>
+                        )}
+
+                        {distanceCalcResults && (
+                            <div className="bg-gray-50 border rounded-xl p-4 space-y-2">
+                                <p>
+                                    <span className="font-semibold">Km:</span>{" "}
+                                    <span className="text-cyan-700">{distanceCalcResults.km}</span>
+                                </p>
+                                <p>
+                                    <span className="font-semibold">Mi:</span>{" "}
+                                    <span className="text-cyan-700">{distanceCalcResults.mi}</span>
+                                </p>
+                                <p>
+                                    <span className="font-semibold">m:</span>{" "}
+                                    <span className="text-cyan-700">{distanceCalcResults.m}</span>
+                                </p>
+                                <p>
+                                    <span className="font-semibold">yds:</span>{" "}
+                                    <span className="text-cyan-700">{distanceCalcResults.yds}</span>
+                                </p>
                             </div>
-                        </div>
-
-                        <button onClick={handleSubmitDistanceCalculation} className="bg-cyan-600 rounded-2xl font-bold text-gray-800 py-3 px-6 mb-4 hover:cursor-pointer hover:bg-cyan-800">Calculate</button>
-
+                        )}
                     </div>
+                    )}
 
                 </div>
-
             </div>
-
         </div>
-    
     );
 
 }
