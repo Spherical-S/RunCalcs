@@ -259,16 +259,16 @@ export default function PaceCalculator() {
     return(
 
         <div className="flex flex-col gap-2 relative">
-            <h1 className="font-sans font-bold text-4xl m-2 text-center">Pace Calculation Tools</h1>
+            <h1 className="font-sans font-bold text-4xl m-2 text-center">RunCalcs Pace Calculation Tools</h1>
 
             {/*Page body*/}
             <div className="flex flex-col">
 
                 {/*Mode select buttons*/}
                 <div className="text-center">
-                    <button onClick={handlePaceClick} className={`${paceOpen ? "bg-white hover:bg-gray-600 border-b-white":"bg-cyan-600 hover:bg-white"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Pace</button>
-                    <button onClick={handleTimeClick} className={`${timeOpen ? "bg-white hover:bg-gray-600 border-b-white":"bg-cyan-600 hover:bg-white"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Time</button>
-                    <button onClick={handleDistanceClick} className={`${distanceOpen ? "bg-white hover:bg-gray-600 border-b-white":"bg-cyan-600 hover:bg-white"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Distance</button>
+                    <button onClick={handlePaceClick} className={`${paceOpen ? "bg-white border-b-white text-black":"bg-cyan-600 text-white hover:bg-white hover:text-black hover:border-b-white"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Pace</button>
+                    <button onClick={handleTimeClick} className={`${timeOpen ? "bg-white border-b-white text-black":"bg-cyan-600 text-white hover:bg-white hover:text-black hover:border-b-white"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Time</button>
+                    <button onClick={handleDistanceClick} className={`${distanceOpen ? "bg-white border-b-white text-black":"bg-cyan-600 text-white hover:bg-white hover:text-black hover:border-b-white"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Distance</button>
                 </div>
 
                 {/*Calculator body*/}
