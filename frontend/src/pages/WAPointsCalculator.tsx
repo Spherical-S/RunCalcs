@@ -28,6 +28,8 @@ export default function WAPointsCalculator() {
     const [genderType, setGenderType] = useState<keyof typeGenders>("Men");
     const [selectedEvent, setSelectedEvent] = useState("1500m");
 
+    const [interpolate, setInterpolate] = useState(false);
+
     const [points, setPoints] = useState("");
     const [mark, setMark] = useState("");
     const [markHours, setMarkHours] = useState("");
@@ -56,12 +58,11 @@ export default function WAPointsCalculator() {
     }, []);
 
     useEffect(() => {
-        if (selectedEvent || genderType) {
-            if(points !== ""){
+            const pts = points === "" ? 0 : Number(points);
+            if(!(pts === 0)){
                 handleCalculateMark();
             }
-        }
-    }, [selectedEvent, genderType]);
+    }, [selectedEvent, genderType, eventType, interpolate]);
 
     function handleReset(){
         setErrorMessage("");
@@ -91,8 +92,6 @@ export default function WAPointsCalculator() {
             setSelectedEvent("RoadHM");
         }
 
-        handleCalculateMark();
-
     }
 
     function handleGenderTypeChange(e: any){
@@ -115,8 +114,6 @@ export default function WAPointsCalculator() {
             }
         }
 
-        handleCalculateMark();
-
     }
 
     function handleSelectedEventChange(e: any){
@@ -127,6 +124,10 @@ export default function WAPointsCalculator() {
 
     }
 
+    function handleInterpolateToggle(){
+        setInterpolate(!interpolate);
+    }
+
     function handleCalculatePoints(){
 
         setErrorMessage("");
@@ -135,6 +136,7 @@ export default function WAPointsCalculator() {
         const mmins = markMinutes === "" ? 0 : Number(markMinutes);
         const msecs = markSeconds === "" ? 0 : Number(markSeconds);
         const m = mark === "" ? 0 : Number(mark);
+        const i = interpolate ? 1 : 0;
 
         var perf = 0;
 
@@ -168,7 +170,7 @@ export default function WAPointsCalculator() {
             
         }
 
-        var url = import.meta.env.VITE_API_URL + `/wapointscalc/perftopts?category=${eventType.toLowerCase()}&gender=${genderType.toLowerCase()}&event=${selectedEvent}&target=${perf}&interpolate=0`;
+        var url = import.meta.env.VITE_API_URL + `/wapointscalc/perftopts?category=${eventType.toLowerCase()}&gender=${genderType.toLowerCase()}&event=${selectedEvent}&target=${perf}&interpolate=${i}`;
 
         fetch(url)
             .then(res => {
@@ -192,6 +194,7 @@ export default function WAPointsCalculator() {
         setErrorMessage("");
 
         const pts = points === "" ? 0 : Number(points);
+        const i = interpolate ? 1 : 0;
 
         if(pts < 0){
             setPoints("");
@@ -201,14 +204,16 @@ export default function WAPointsCalculator() {
         if(pts === 0){
             setErrorMessage("Minimum value for points is 1");
             setPoints("");
+            return;
         }
 
         if(pts > 1400){
             setErrorMessage("Maximum value for points is 1400");
             setPoints("");
+            return;
         }
 
-        var url = import.meta.env.VITE_API_URL + `/wapointscalc/ptstoperf?category=${eventType.toLowerCase()}&gender=${genderType.toLowerCase()}&event=${selectedEvent}&target=${pts}&interpolate=0`;
+        var url = import.meta.env.VITE_API_URL + `/wapointscalc/ptstoperf?category=${eventType.toLowerCase()}&gender=${genderType.toLowerCase()}&event=${selectedEvent}&target=${pts}&interpolate=${i}`;
 
         fetch(url)
             .then(res => {
@@ -261,8 +266,10 @@ export default function WAPointsCalculator() {
             <div className="flex flex-col">
 
                 {/*Calculator body*/}
-                <div className="relative">
-                    <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-6">
+                <div className="relative flex justify-center gap-10 flex-wrap">
+                    
+                    {/*Calculator card*/}
+                    <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md space-y-6">
                         <h2 className="text-xl font-bold text-gray-800">WA Points Calculator</h2>
 
                         <div className="space-y-4">
@@ -303,6 +310,18 @@ export default function WAPointsCalculator() {
                                         <option key={key} value={key}>{display}</option>
                                         ))}
                                     </select>
+                                </div>
+                            </div>
+
+                            {/*Interpolate toggle input*/}
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Interpolate?</label>
+                                <div className="flex gap-2">
+
+                                    <button type="button" onClick={handleInterpolateToggle} className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${interpolate ? "bg-cyan-600" : "bg-gray-300"}`}>
+                                        <span
+                                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${interpolate ? "translate-x-6" : "translate-x-1"}`}/>
+                                    </button>
                                 </div>
                             </div>
 
@@ -358,6 +377,24 @@ export default function WAPointsCalculator() {
                         </div>
 
                     </div>
+
+                    {/*About section*/}
+                    <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md space-y-6">
+                        <h2 className="text-xl font-bold text-gray-800">About the Calculator</h2>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">What are WA points?</label>
+                            <p className="block text-xs font-medium text-gray-600 mb-1">World Athletics (WA) points are a metric used by the international governing body of the sport to compare performances across events. WA points provide a way to approximate equivalent standards between events even if the events are completely different. For example, if you score 1000 points in the mens outdoor 1500m (3:48.17), the equivalent performance, according to World Athletics, in the womens triple jump is 12.85m (1000 points).</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">How are WA points calculated?</label>
+                            <p className="block text-xs font-medium text-gray-600 mb-1">Points are calculated using the official 2025 scoring tables provided by <a href="https://worldathletics.org" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">World Athletics</a>. This calculator takes JSON data scraped from the scoring tables, then searches through the data sets to find the performance or points equivalent you're looking for. If you're interested, see more on my <a href="https://github.com/Spherical-S" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">GitHub</a>.</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Credits</label>
+                            <p className="block text-xs font-medium text-gray-600 mb-1">Credit to <a href="https://jeffchen.dev" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">Jeff Chen</a> for providing the scraping tool which converts the WA scoring tables PDF to JSON.</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
