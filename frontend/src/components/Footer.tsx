@@ -2,7 +2,7 @@ export default function Footer(){
 
     return(
 
-        <div className="bg-gray-700 text-center flex-col">
+        <div className="bg-gray-700 text-center flex-col mt-5">
             <p className="m-5 text-white">This webapp was made with blood, sweat, and carbs, brought to you by Sadiq Shahid ❤️</p>
 
             <div className="flex justify-center gap-10 mb-4">
