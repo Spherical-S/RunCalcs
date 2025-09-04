@@ -36,6 +36,7 @@ export default function Home() {
             <HomeNavigationButton label="Steeplechase Laps Calculator" color="bg-cyan-600" hoverColor="hover:bg-cyan-800" redirect="/steeple-laps"/>
             <HomeNavigationButton label="Event Conversion Tool" color="bg-red-600" hoverColor="hover:bg-red-800" redirect="/events"/>
             <HomeNavigationButton label="Flat/Banked Track Converter" color="bg-indigo-600" hoverColor="hover:bg-indigo-800" redirect="/flat-banked-track"/>
+            
             {errorMessage && (
                 <div className="w-1/2 bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded mx-auto">{errorMessage}</div>
             )}

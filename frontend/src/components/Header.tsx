@@ -137,11 +137,11 @@ export default function Header(){
 
     return(
         <>
-            <div className="bg-gray-700 mb-5 flex">
+            <div className="bg-gray-700 mb-5 flex relative">
                 <Link to="/">
                     <h2 className="font-sans font-semibold text-3xl m-2 ml-5 text-white">RunCalcs</h2>
                 </Link>
-                <button className="fixed top-0 right-0 m-3 hover:cursor-pointer" onClick={()=>setOpen(true)}>
+                <button className="absolute top-0 right-0 m-3 hover:cursor-pointer" onClick={()=>setOpen(true)}>
                     <img className="w-8 h-8" src="/menu.png" alt="menu" />
                 </button>
             </div>
