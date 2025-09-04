@@ -21,29 +21,11 @@ export default function PaceCalculator() {
     const distanceMap: Record<string, number> = { km: 0, mi: 1, m: 2, yds: 3 };
     const paceMap: Record<string, number> = { PacePerKm: 0, PacePerMi: 1, "PaceKm/h": 2, "PaceMi/h": 3 };
 
-    useEffect(() => {
-        document.title = "RunCalcs: Pace Calculator";
-    }, []);
-
-    useEffect(() => {
-            const url = import.meta.env.VITE_API_URL + "/ping"
-            fetch(url)
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error(`HTTP error! Status: ${res.status}`);
-                }
-            })
-            .catch(err => {
-                console.error("API request failed:", err.message);
-                setErrorMessage("API is sleeping... Calculators may be slow to start");
-            });
-    }, []);
-
     const [paceOpen, setPaceOpen] = useState(true);
     const [timeOpen, setTimeOpen] = useState(false);
     const [distanceOpen, setDistanceOpen] = useState(false);
 
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("Waiting for API...");
 
     const [paceUnit, setPaceUnit] = useState("PacePerKm");
     const [distanceUnit, setDistanceUnit] = useState("km");
@@ -62,6 +44,25 @@ export default function PaceCalculator() {
     const [paceCalcResults, setPaceCalcResults] = useState({"PacePerKm": "", "PacePerMi": "", "PaceKm/h": "", "PaceMi/h": ""});
     const [timeCalcResults, setTimeCalcResults] = useState({"Time": ""});
     const [distanceCalcResults, setDistanceCalcResults] = useState({"km": "", "mi": "", "m": "", "yds": ""});
+
+    useEffect(() => {
+        document.title = "RunCalcs: Pace Calculator";
+    }, []);
+
+    useEffect(() => {
+            const url = import.meta.env.VITE_API_URL + "/ping"
+            fetch(url)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
+                }
+                setErrorMessage("");
+            })
+            .catch(err => {
+                console.error("API request failed:", err.message);
+                setErrorMessage("API is sleeping... Calculators may not work or take longer than usual");
+            });
+    }, []);
 
     function handlePaceClick(){
         setPaceOpen(true);

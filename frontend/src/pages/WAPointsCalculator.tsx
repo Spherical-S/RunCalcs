@@ -34,7 +34,7 @@ export default function WAPointsCalculator() {
     const [markMinutes, setMarkMinutes] = useState("");
     const [markSeconds, setMarkSeconds] = useState("");
 
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("Waiting for API...");
 
     useEffect(() => {
         document.title = "RunCalcs: WA Points Calculator";
@@ -47,10 +47,11 @@ export default function WAPointsCalculator() {
                 if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
                 }
+                setErrorMessage("");
             })
             .catch(err => {
                 console.error("API request failed:", err.message);
-                setErrorMessage("API is sleeping... Calculators may be slow to start");
+                setErrorMessage("API is sleeping... Calculators may not work or take longer than usual");
             });
     }, []);
 

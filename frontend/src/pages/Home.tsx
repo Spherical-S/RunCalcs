@@ -5,7 +5,7 @@ export default function Home() {
 
     document.title = "RunCalcs: Home"
 
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("Waiting for API...");
 
     useEffect(() => {
             const url = import.meta.env.VITE_API_URL + "/ping"
@@ -14,6 +14,7 @@ export default function Home() {
                 if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
                 }
+                setErrorMessage("");
             })
             .catch(err => {
                 console.error("API request failed:", err.message);
