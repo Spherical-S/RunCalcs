@@ -25,6 +25,20 @@ export default function PaceCalculator() {
         document.title = "RunCalcs: Pace Calculator";
     }, []);
 
+    useEffect(() => {
+            const url = import.meta.env.VITE_API_URL + "/ping"
+            fetch(url)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
+                }
+            })
+            .catch(err => {
+                console.error("API request failed:", err.message);
+                setErrorMessage("API is sleeping... Calculators may be slow to start");
+            });
+    }, []);
+
     const [paceOpen, setPaceOpen] = useState(true);
     const [timeOpen, setTimeOpen] = useState(false);
     const [distanceOpen, setDistanceOpen] = useState(false);

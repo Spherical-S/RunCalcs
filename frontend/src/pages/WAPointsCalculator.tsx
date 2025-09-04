@@ -41,6 +41,20 @@ export default function WAPointsCalculator() {
     }, []);
 
     useEffect(() => {
+            const url = import.meta.env.VITE_API_URL + "/ping"
+            fetch(url)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
+                }
+            })
+            .catch(err => {
+                console.error("API request failed:", err.message);
+                setErrorMessage("API is sleeping... Calculators may be slow to start");
+            });
+    }, []);
+
+    useEffect(() => {
         if (selectedEvent || genderType) {
             if(points !== ""){
                 handleCalculateMark();
