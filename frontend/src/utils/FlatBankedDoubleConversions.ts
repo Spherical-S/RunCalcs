@@ -45,5 +45,8 @@ export const INDOORDOUBLEMAP : indoorDoubleMapType = {
     }},
     "5000msh": {display: "5000m", doubles: {
         "3000msh": "3000m"
-    }}
+    }},
+    "4x200msh": {display: "4x200m", doubles: {}},
+    "4x400msh": {display: "4x400m", doubles: {}},
+    "4x800msh": {display: "4x800m", doubles: {}}
 }

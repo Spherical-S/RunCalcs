@@ -124,7 +124,13 @@ export default function FlatBankedTrackConverter() {
 
         var time = secs + (mins*60) + (hrs * 60 * 60);
 
-        var url = import.meta.env.VITE_API_URL + `/flatbankedconverter/convert?event=${event}&time=${time}&gender=${gender.toLowerCase()}&isDouble=${isDouble}&doubleEvent=${doubleEvent}&isFlat=${undersizedOpen || flatOpen}&isUndersize=${undersizedOpen}`;
+        var url = "";
+
+        if(event === "4x200msh" || event === "4x400msh" || event === "4x800msh"){
+            url = import.meta.env.VITE_API_URL + `/flatbankedconverter/convert?event=${event.slice(2)}&time=${time}&gender=${gender.toLowerCase()}&isDouble=${isDouble}&doubleEvent=${doubleEvent}&isFlat=${undersizedOpen || flatOpen}&isUndersize=${undersizedOpen}`;
+        }else{
+            url = import.meta.env.VITE_API_URL + `/flatbankedconverter/convert?event=${event}&time=${time}&gender=${gender.toLowerCase()}&isDouble=${isDouble}&doubleEvent=${doubleEvent}&isFlat=${undersizedOpen || flatOpen}&isUndersize=${undersizedOpen}`;
+        }
 
         fetch(url)
         .then(res => {
