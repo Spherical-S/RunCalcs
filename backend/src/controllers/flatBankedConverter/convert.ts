@@ -41,9 +41,9 @@ export default function convertEvent(event: string, time: number, gender: string
         results.double = doubles[doubleEvent]!;
     }
 
-    results.undersized = Math.round(results.undersized*100)/100;
-    results.flat = Math.round(results.flat*100)/100;
-    results.banked = Math.round(results.banked*100)/100;
+    results.undersized = Math.ceil(results.undersized*100)/100;
+    results.flat = Math.ceil(results.flat*100)/100;
+    results.banked = Math.ceil(results.banked*100)/100;
 
     return results;
 

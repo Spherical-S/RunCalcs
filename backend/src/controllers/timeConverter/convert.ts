@@ -27,10 +27,18 @@ function WAPerfToPerf(event: string, goal:string, time: number, gender: string):
 
     const pts = perfToPts(eventCategory, gender, event, time, 0).points;
 
+    if(pts <= 0 || pts >= 1400){
+        return NaN;
+    }
+
     return ptsToPerf(goalCategory, gender, goal, pts, 0).mark;
 }
 
-function getConvertion(toConvert: eventConversionData, current: string, endGoal: string, time: number, gender: string): number{
+function getConversion(toConvert: eventConversionData, current: string, endGoal: string, time: number, gender: string): number{
+
+    if(Number.isNaN(time)){
+        return NaN;
+    }
 
     if (toConvert.WACompatible){
         return WAPerfToPerf(current, endGoal, time, gender);
@@ -61,7 +69,7 @@ function getConvertion(toConvert: eventConversionData, current: string, endGoal:
 
     const nextConversion = newConversions[endGoal as keyof convertableEvents];
 
-    return getConvertion(nextConversion!, current, endGoal, time, gender);
+    return getConversion(nextConversion!, current, endGoal, time, gender);
 
 }
 
@@ -86,7 +94,7 @@ export default function convertEvent(event: string, time: number, gender: string
             }
         }
 
-        results[key] = getConvertion(toConvert, current, endGoal, time, gender);
+        results[key] = getConversion(toConvert, current, endGoal, time, gender);
 
     }
 
