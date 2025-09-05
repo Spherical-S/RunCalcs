@@ -318,7 +318,7 @@ export default function WAPointsCalculator() {
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Interpolate?</label>
                                 <div className="flex gap-2">
 
-                                    <button type="button" onClick={handleInterpolateToggle} className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${interpolate ? "bg-cyan-600" : "bg-gray-300"}`}>
+                                    <button type="button" onClick={handleInterpolateToggle} className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors hover:cursor-pointer ${interpolate ? "bg-cyan-600" : "bg-gray-300"}`}>
                                         <span
                                         className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${interpolate ? "translate-x-6" : "translate-x-1"}`}/>
                                     </button>
