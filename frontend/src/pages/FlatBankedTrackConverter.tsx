@@ -168,7 +168,7 @@ export default function FlatBankedTrackConverter() {
             <h1 className="font-sans font-bold text-4xl m-2 text-center">RunCalcs Indoor Flat/Banked Track Converter</h1>
 
             {/*Page body*/}
-            <div className="relative flex justify-center flex-wrap">
+            <div className="relative flex justify-center flex-wrap gap-6">
 
                 {/*Calculator body*/}
                 <div className="relative flex justify-center flex-wrap">
