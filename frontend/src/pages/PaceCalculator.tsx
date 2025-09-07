@@ -71,6 +71,7 @@ export default function PaceCalculator() {
         setPaceHours("");
         setPaceMinutes("");
         setPaceSeconds("");
+        setPacePerHour("");
         setTimeCalcResults({"Time": ""});
     }
 
@@ -82,6 +83,7 @@ export default function PaceCalculator() {
         setPaceHours("");
         setPaceMinutes("");
         setPaceSeconds("");
+        setPacePerHour("");
         setHours("");
         setMinutes("");
         setSeconds("");
