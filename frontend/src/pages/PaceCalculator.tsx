@@ -278,7 +278,7 @@ export default function PaceCalculator() {
 
                     {/*Pace Calculator*/}
                     {paceOpen && (
-                        <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-6">
+                        <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md mx-auto space-y-6">
                         <h2 className="text-xl font-bold text-gray-800">Pace Calculator</h2>
 
                         <div className="space-y-4">
@@ -354,7 +354,7 @@ export default function PaceCalculator() {
 
                     {/*Time calculator*/}
                     {timeOpen && (
-                        <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-6">
+                        <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md mx-auto space-y-6">
                         <h2 className="text-xl font-bold text-gray-800">Time Calculator</h2>
 
                         <div className="space-y-4">
@@ -437,7 +437,7 @@ export default function PaceCalculator() {
 
                     {/*Distance calculator*/}
                     {distanceOpen && (
-                        <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-6">
+                        <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md mx-auto space-y-6">
                         <h2 className="text-xl font-bold text-gray-800">Distance Calculator</h2>
 
                         <div className="space-y-4">

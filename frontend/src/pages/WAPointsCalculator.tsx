@@ -269,7 +269,7 @@ export default function WAPointsCalculator() {
                 <div className="relative flex justify-center gap-10 flex-wrap">
                     
                     {/*Calculator card*/}
-                    <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md space-y-6">
+                    <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md space-y-6">
                         <h2 className="text-xl font-bold text-gray-800">WA Points Calculator</h2>
 
                         <div className="space-y-4">
@@ -379,7 +379,7 @@ export default function WAPointsCalculator() {
                     </div>
 
                     {/*About section*/}
-                    <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md space-y-6">
+                    <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md space-y-6">
                         <h2 className="text-xl font-bold text-gray-800">About the Calculator</h2>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">What are WA points?</label>

@@ -204,7 +204,7 @@ export default function UnitConverter() {
 
                     {/*Pace Calculator*/}
                     {paceOpen && (
-                        <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-6">
+                        <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md mx-auto space-y-6">
                         <h2 className="text-xl font-bold text-gray-800">Pace Unit Converter</h2>
 
                         <div className="space-y-4">

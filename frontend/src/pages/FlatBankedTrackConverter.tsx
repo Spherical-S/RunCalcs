@@ -182,7 +182,7 @@ export default function FlatBankedTrackConverter() {
 
                     <div className="w-full">
                         {/*Flat Track Converter*/}
-                        <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-6">
+                        <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md mx-auto space-y-6">
                             <h2 className="text-xl font-bold text-gray-800">{
                                 flatOpen ? "Flat Track Converter" : undersizedOpen ? "Undersized Track Converter" : "Banked Track Converter"
                             }</h2>
@@ -299,7 +299,7 @@ export default function FlatBankedTrackConverter() {
                 </div>
 
                 {/*About section*/}
-                <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md space-y-6">
+                <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md space-y-6">
                     <h2 className="text-xl font-bold text-gray-800">About the Calculator</h2>
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">How Does The Undersized/Flat/Banked Conversion Work?</label>
