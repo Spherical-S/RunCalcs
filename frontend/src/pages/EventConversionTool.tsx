@@ -93,6 +93,11 @@ export default function EventConversionTool() {
         const mins = minutes === "" ? 0 : Number(minutes);
         const secs = seconds === "" ? 0 : Number(seconds);
 
+        if((genderType === "men" && selectedEvent === "100mH") || (genderType === "women" && selectedEvent === "110mH")){
+            setErrorMessage("Invalid event for this gender (Men --> 110mH / Women --> 100mH)");
+            return;
+        }
+
         if(hrs < 0 || mins < 0 || secs < 0){
             setErrorMessage("Please provide positive time values");
             return;
@@ -110,7 +115,7 @@ export default function EventConversionTool() {
         fetch(url)
             .then(res => {
                 if (!res.ok) {
-                throw new Error(`HTTP error! Status: ${res.status}`);
+                    throw new Error(`HTTP error! Status: ${res.status}`);
                 }
                 return res.json();
             })
@@ -235,6 +240,20 @@ export default function EventConversionTool() {
                         </div>
 
                     </div>
+
+                    {/*About section*/}
+                    <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md space-y-6">
+                        <h2 className="text-xl font-bold text-gray-800">About the Calculator</h2>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">How do event conversions work?</label>
+                            <p className="block text-xs font-medium text-gray-600 mb-1">Event conversions are done primarily using World Athletics points. In the case an event doesn't exist in the World Athletics scoring tables, conversions are simply done by calculating the pace for the selected event and then calculating how long it would take to run the destination event at that pace. If you're interested, see my GitHub for more!</p>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">How do you use the event conversions tool?</label>
+                            <p className="block text-xs font-medium text-gray-600 mb-1">Select an event type (Track, Short (aka Indoor), or Road), then select a gender category. Next, select the event you wish to convert from the "Event" dropdown and enter the time to convert. Hit calculate, and you will receive a list of events with converted times.</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
