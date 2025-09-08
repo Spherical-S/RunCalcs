@@ -65,6 +65,7 @@ export default function Header(){
                                     <MenuItem label="Steeplechase Laps Calculator" icon="/steeplelaps.png" redirect="/steeple-laps" />
                                     <MenuItem label="Event Conversion Tool" icon="/eventconverter.png" redirect="/events" />
                                     <MenuItem label="Flat/Banked Track Converter" icon="/flatbanked.png" redirect="/flat-banked-track" />
+                                    <MenuItem label="About" icon="/about.png" redirect="/about" />
                                 </li>
                             </ul>
                         </div>

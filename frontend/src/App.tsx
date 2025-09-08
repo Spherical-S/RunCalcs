@@ -11,6 +11,7 @@ import SplitsCalculator from "./pages/SplitsCalculator";
 import SteepleLapsCalculator from "./pages/SteepleLapsCalculator";
 import EventConversionTool from "./pages/EventConversionTool";
 import FlatBankedTrackConverter from "./pages/FlatBankedTrackConverter";
+import About from "./pages/About";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/steeple-laps" element={<SteepleLapsCalculator />} />
           <Route path="/events" element={<EventConversionTool />} />
           <Route path="/flat-banked-track" element={<FlatBankedTrackConverter />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </main>
       <Footer />
