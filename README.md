@@ -40,8 +40,9 @@ Instead of visiting multiple websites for pace, splits, conversions, and perform
 
 ## Screenshots
 
-![Home Page](https://imgur.com/a/rN9Olgs)
-![Flat/Banked Calculator](https://imgur.com/a/QTNFHmJ)
+![Home Page](./screenshots/home.png)
+![Flat/Banked Calulator](./screenshots/flatbanked.png)
+![Splits](./screenshots/splits.png)
 
 ---
 
