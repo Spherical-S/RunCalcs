@@ -109,7 +109,7 @@ export default function PaceCalculator() {
             return;
         }
 
-        var time = secs + (mins*60) + (hrs * 60 * 60)
+        var time = secs + (mins*60) + (hrs * 60 * 60);
 
         const distUnit = distanceMap[distanceUnit];
 
