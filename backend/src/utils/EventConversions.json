@@ -311,11 +311,7 @@
         "RoadMarathon": {"WACompatible": true}
     },
     "RoadMarathon": {
-        "Road30km": {"WACompatible": true},
-        "Road50km": {"WACompatible": true}
-    },
-    "Road50km": {
-        "RoadMarathon": {"WACompatible": true}
+        "Road30km": {"WACompatible": true}
     },
     "50mH": {
         "55mH": {"WACompatible": true},
