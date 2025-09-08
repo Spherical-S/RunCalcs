@@ -28,7 +28,6 @@ Instead of visiting multiple websites for pace, splits, conversions, and perform
 - TailwindCSS  
 
 **Backend:**  
-- Node.js  
 - Express  
 - TypeScript  
 
