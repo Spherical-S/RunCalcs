@@ -1,0 +1,65 @@
+export type eventMapType = {
+    "Track": Record<string, string>,
+    "Short": Record<string, string>,
+    "Road": Record<string, string>
+}
+
+export const EVENTMAP: eventMapType = {
+	"Short": {
+        "200msh": "200m",
+        "300msh": "300m",
+        "400msh": "400m",
+        "500msh": "500m",
+        "600msh": "600m",
+        "800msh": "800m",
+        "1000msh": "1000m",
+        "1500msh": "1500m",
+        "1600msh": "1600m",
+        "Milesh": "Mile",
+        "3000msh": "3000m",
+        "3200msh": "3200m",
+        "2Milessh": "2 Miles",
+        "5000msh": "5000m"
+	},
+	"Track": {
+        "50m": "50m",
+        "55m": "55m",
+        "60m": "60m",
+        "100m": "100m",
+        "200m": "200m",
+        "300m": "300m",
+        "400m": "400m",
+        "500m": "500m",
+        "600m": "600m",
+        "800m": "800m",
+        "1000m": "1000m",
+        "1500m": "1500m",
+        "1600m": "1600m",
+        "Mile": "Mile",
+        "3000m": "3000m",
+        "3200m": "3200m",
+        "2Miles": "2 Miles",
+        "3Miles": "3 Miles",
+        "5000m": "5000m",
+        "10,000m": "10,000m",
+        "50mH": "50m Hurdles",
+        "55mH": "55m Hurdles",
+        "60mH": "60m Hurdles",
+        "100mH": "100m Hurdles",
+        "110mH": "110m Hurdles",
+	},
+	"Road": {
+        "RoadMile": "Mile",
+        "Road5km": "5km",
+        "Road3Miles": "3 Miles",
+        "Road6Miles": "6 Miles",
+        "Road10km": "10km",
+        "Road15km": "15km",
+        "Road10Miles": "10 Miles",
+        "Road20km": "20km",
+        "RoadHM": "Half Marathon",
+        "Road25km": "25km",
+        "Road30km": "30km",
+        "RoadMarathon": "Marathon"
+	}
+}
