@@ -73,7 +73,14 @@ export default function FlatBankedTrackConverter() {
 
         setErrorMessage("");
         setEvent(e.target.value);
-        setDoubleEvent(Object.entries(INDOORDOUBLEMAP[e.target.value as keyof indoorDoubleMapType].doubles)[0][0]);
+
+        if(Object.keys(INDOORDOUBLEMAP[e.target.value as keyof indoorDoubleMapType].doubles).length === 0 && isDouble){
+            setIsDouble(false);
+        }else{
+            setDoubleEvent(Object.entries(INDOORDOUBLEMAP[e.target.value as keyof indoorDoubleMapType].doubles)[0][0]);
+        }
+
+        
 
     }
 
