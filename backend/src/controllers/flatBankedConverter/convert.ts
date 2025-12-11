@@ -28,7 +28,7 @@ export default function convertEvent(event: string, time: number, gender: string
     } else{
         results.banked = time;
         results.flat = time / conversionRations[genderCategory + "flatToBanked" as keyof conversionData];
-        results.undersized = time / conversionRations[genderCategory + "underToFlat" as keyof conversionData];
+        results.undersized = results.flat / conversionRations[genderCategory + "underToFlat" as keyof conversionData];
     }
 
     if(isDouble){
