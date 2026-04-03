@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import formatSecToPace from "../utils/FormatSecondsToTime.ts"
 import elevationToGrade from "../utils/ElevationToGrade.ts";
+import { Helmet } from 'react-helmet-async';
 
 export default function GAPCalculator() {
 
@@ -184,193 +185,204 @@ export default function GAPCalculator() {
     }
 
     return (
+        <>
+            <Helmet>
+                <title>Elevation Pace Calculator | RunCalcs</title>
+                <meta name="description" content="Calculate your grade adjusted pace (GAP) for any elevation gain, distance, or gradient. Accounts for the energy cost of hills using the Minetti et al. model." />
+                <meta name="keywords" content="grade adjusted pace, GAP calculator, elevation pace calculator, trail running pace, running uphill pace, Minetti model, hill running calculator, adjusted pace elevation gain, treadmill grade adjustment, treadmill elevation chart, treadmill elevation conversion" />
+                <link rel="canonical" href="https://runcalcs.ca/elevation-pace" />
+                <meta property="og:title" content="Elevation Pace Calculator | RunCalcs" />
+                <meta property="og:description" content="Calculate your grade adjusted pace (GAP) for any elevation gain, distance, or gradient. Accounts for the energy cost of hills using the Minetti et al. model." />
+                <meta property="og:url" content="https://runcalcs.ca/elevation-pace" />
+            </Helmet>
 
-        <div className="flex flex-col gap-2 relative">
-            <h1 className="font-sans font-bold text-4xl m-2 text-center">RunCalcs Elevation Conversion Tool</h1>
+            <div className="flex flex-col gap-2 relative">
+                <h1 className="font-sans font-bold text-4xl m-2 text-center">RunCalcs Elevation Conversion Tool</h1>
 
-            {/*Page body*/}
-            <div className="flex flex-col">
+                {/*Page body*/}
+                <div className="flex flex-col">
 
-                {/*Mode select buttons*/}
-                <div className="text-center">
-                    <button onClick={handleTimeClick} className={`${timeOpen ? "bg-white border-b-white text-black":"bg-cyan-600 text-white hover:bg-white hover:text-black hover:border-b-white"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Time</button>
-                    <button onClick={handlePaceClick} className={`${paceOpen ? "bg-white border-b-white text-black":"bg-cyan-600 text-white hover:bg-white hover:text-black hover:border-b-white"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Pace</button>
-                </div>
+                    {/*Mode select buttons*/}
+                    <div className="text-center">
+                        <button onClick={handleTimeClick} className={`${timeOpen ? "bg-white border-b-white text-black":"bg-cyan-600 text-white hover:bg-white hover:text-black hover:border-b-white"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Time</button>
+                        <button onClick={handlePaceClick} className={`${paceOpen ? "bg-white border-b-white text-black":"bg-cyan-600 text-white hover:bg-white hover:text-black hover:border-b-white"} border border-gray-500 rounded-t-2xl hover:cursor-pointer p-2 w-20 mr-1`}>Pace</button>
+                    </div>
 
-                {/*Calculator body*/}
-                <div className="relative">
+                    {/*Calculator body*/}
+                    <div className="relative">
 
-                    {/*Time Calculator*/}
-                    {timeOpen && (
-                        <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md mx-auto space-y-6">
-                            <h2 className="text-xl font-bold text-gray-800">Elevation time converter</h2>
+                        {/*Time Calculator*/}
+                        {timeOpen && (
+                            <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md mx-auto space-y-6">
+                                <h2 className="text-xl font-bold text-gray-800">Elevation time converter</h2>
 
-                            <div className="space-y-4">
-                                {/* Time inputs */}
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Time (hh:mm:ss.ss)</label>
-                                    <div className="flex gap-2">
+                                <div className="space-y-4">
+                                    {/* Time inputs */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Time (hh:mm:ss.ss)</label>
+                                        <div className="flex gap-2">
 
-                                        <input type="number" placeholder="hh" value={hours} onChange={(e) => setHours(e.target.value)}
-                                            className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                            <input type="number" placeholder="hh" value={hours} onChange={(e) => setHours(e.target.value)}
+                                                className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
-                                        <span className="self-center">:</span>
+                                            <span className="self-center">:</span>
 
-                                        <input type="number" placeholder="mm" value={minutes} onChange={(e) => setMinutes(e.target.value)}
-                                            className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                            <input type="number" placeholder="mm" value={minutes} onChange={(e) => setMinutes(e.target.value)}
+                                                className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
-                                        <span className="self-center">:</span>
+                                            <span className="self-center">:</span>
 
-                                        <input type="number" placeholder="ss" value={seconds} onChange={(e) => setSeconds(e.target.value)}
-                                            className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                            <input type="number" placeholder="ss" value={seconds} onChange={(e) => setSeconds(e.target.value)}
+                                                className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
+                                        </div>
                                     </div>
+
+                                    {/* Distance input */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Distance</label>
+                                        <div className="flex gap-2">
+                                            <input type="number" placeholder="0" value={distance} onChange={(e) => setDistance(e.target.value)}
+                                                className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
+
+                                            <select value={distanceUnit} onChange={(e) => setDistanceUnit(e.target.value)}
+                                                className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
+                                                <option value="km">km</option>
+                                                <option value="mi">mi</option>
+                                                <option value="m">m</option>
+                                                <option value="yds">yds</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    {/* Elevation input */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Elevation or Grade %</label>
+                                        <div className="flex gap-2">
+                                            <input type="number" placeholder="0" value={elevation} onChange={(e) => setElevation(e.target.value)}
+                                                className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
+
+                                            <select value={elevationUnit} onChange={(e) => setElevationUnit(e.target.value)}
+                                                className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
+                                                <option value="%">%</option>
+                                                <option value="m">m</option>
+                                                <option value="yds">yds</option>
+                                                <option value="ft">ft</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
                                 </div>
 
-                                {/* Distance input */}
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Distance</label>
-                                    <div className="flex gap-2">
-                                        <input type="number" placeholder="0" value={distance} onChange={(e) => setDistance(e.target.value)}
-                                            className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
+                                <button onClick={handleSubmitTimeCalculation}
+                                    className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Calculate Time</button>
 
-                                        <select value={distanceUnit} onChange={(e) => setDistanceUnit(e.target.value)}
-                                            className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
-                                            <option value="km">km</option>
-                                            <option value="mi">mi</option>
-                                            <option value="m">m</option>
-                                            <option value="yds">yds</option>
-                                        </select>
+                                {errorMessage && (
+                                    <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded">{errorMessage}</div>
+                                )}
+
+                                {timeCalcResults && (
+                                    <div className="bg-gray-50 border rounded-xl p-4 space-y-2">
+                                        <p>
+                                            <span className="font-semibold">Time:</span>{" "}
+                                            <span className="text-cyan-700">{timeCalcResults.Time}</span>
+                                        </p>
                                     </div>
-                                </div>
-
-                                {/* Elevation input */}
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Elevation or Grade %</label>
-                                    <div className="flex gap-2">
-                                        <input type="number" placeholder="0" value={elevation} onChange={(e) => setElevation(e.target.value)}
-                                            className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
-
-                                        <select value={elevationUnit} onChange={(e) => setElevationUnit(e.target.value)}
-                                            className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
-                                            <option value="%">%</option>
-                                            <option value="m">m</option>
-                                            <option value="yds">yds</option>
-                                            <option value="ft">ft</option>
-                                        </select>
-                                    </div>
-                                </div>
-
+                                )}
                             </div>
 
-                            <button onClick={handleSubmitTimeCalculation}
-                                className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Calculate Time</button>
+                        )}
 
-                            {errorMessage && (
-                                <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded">{errorMessage}</div>
-                            )}
+                        {/*Pace calculator*/}
+                        {paceOpen && (
+                            <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-6">
+                                <h2 className="text-xl font-bold text-gray-800">Elevation pace converter</h2>
 
-                            {timeCalcResults && (
-                                <div className="bg-gray-50 border rounded-xl p-4 space-y-2">
-                                    <p>
-                                        <span className="font-semibold">Time:</span>{" "}
-                                        <span className="text-cyan-700">{timeCalcResults.Time}</span>
-                                    </p>
-                                </div>
-                            )}
-                        </div>
+                                <div className="space-y-4">
+                                    {/* Pace inputs */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Pace{(paceUnit === "PacePerKm" || paceUnit === "PacePerMi") ? " (hh:mm:ss.ss)":""}</label>
+                                        <div className="flex gap-2">
 
-                    )}
+                                            {(paceUnit === "PacePerKm" || paceUnit === "PacePerMi") &&(
+                                                <>
+                                                    <input type="number" placeholder="hh" value={paceHours} onChange={(e) => setPaceHours(e.target.value)}
+                                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
-                    {/*Pace calculator*/}
-                    {paceOpen && (
-                        <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-auto space-y-6">
-                            <h2 className="text-xl font-bold text-gray-800">Elevation pace converter</h2>
+                                                    <span className="self-center">:</span>
 
-                            <div className="space-y-4">
-                                {/* Pace inputs */}
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Pace{(paceUnit === "PacePerKm" || paceUnit === "PacePerMi") ? " (hh:mm:ss.ss)":""}</label>
-                                    <div className="flex gap-2">
+                                                    <input type="number" placeholder="mm" value={paceMinutes} onChange={(e) => setPaceMinutes(e.target.value)}
+                                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
-                                        {(paceUnit === "PacePerKm" || paceUnit === "PacePerMi") &&(
-                                            <>
-                                                <input type="number" placeholder="hh" value={paceHours} onChange={(e) => setPaceHours(e.target.value)}
-                                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                                    <span className="self-center">:</span>
 
-                                                <span className="self-center">:</span>
+                                                    <input type="number" placeholder="ss" value={paceSeconds} onChange={(e) => setPaceSeconds(e.target.value)}
+                                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                                </>
+                                            )}
 
-                                                <input type="number" placeholder="mm" value={paceMinutes} onChange={(e) => setPaceMinutes(e.target.value)}
-                                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                            {(paceUnit === "PaceKm/h" || paceUnit === "PaceMi/h") &&(
+                                                <>
+                                                    <input type="number" placeholder="0" value={pacePerHour} onChange={(e) => setPacePerHour(e.target.value)}
+                                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                                </>
+                                            )}
+                                        
 
-                                                <span className="self-center">:</span>
+                                            <select value={paceUnit} onChange={(e) => setPaceUnit(e.target.value)}
+                                                className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
+                                                <option value="PacePerKm">Per km</option>
+                                                <option value="PacePerMi">Per mi</option>
+                                                <option value="PaceKm/h">km/h</option>
+                                                <option value="PaceMi/h">mi/h</option>
+                                            </select>
 
-                                                <input type="number" placeholder="ss" value={paceSeconds} onChange={(e) => setPaceSeconds(e.target.value)}
-                                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
-                                            </>
-                                        )}
+                                        </div>
+                                    </div>
 
-                                        {(paceUnit === "PaceKm/h" || paceUnit === "PaceMi/h") &&(
-                                            <>
-                                                <input type="number" placeholder="0" value={pacePerHour} onChange={(e) => setPacePerHour(e.target.value)}
-                                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
-                                            </>
-                                        )}
-                                    
-
-                                        <select value={paceUnit} onChange={(e) => setPaceUnit(e.target.value)}
-                                            className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
-                                            <option value="PacePerKm">Per km</option>
-                                            <option value="PacePerMi">Per mi</option>
-                                            <option value="PaceKm/h">km/h</option>
-                                            <option value="PaceMi/h">mi/h</option>
-                                        </select>
-
+                                    {/* Elevation input */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Grade %</label>
+                                        <div className="flex gap-2">
+                                            <input type="number" placeholder="0" value={elevation} onChange={(e) => setElevation(e.target.value)}
+                                                className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
+                                        </div>
                                     </div>
                                 </div>
 
-                                {/* Elevation input */}
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Grade %</label>
-                                    <div className="flex gap-2">
-                                        <input type="number" placeholder="0" value={elevation} onChange={(e) => setElevation(e.target.value)}
-                                            className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
+                                <button onClick={handleSubmitPaceCalculation}
+                                    className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Calculate Pace</button>
+
+                                {errorMessage && (
+                                    <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded">{errorMessage}</div>
+                                )}
+
+                                {paceCalcResults && (
+                                    <div className="bg-gray-50 border rounded-xl p-4 space-y-2">
+                                        <p>
+                                            <span className="font-semibold">Pace per km:</span>{" "}
+                                            <span className="text-cyan-700">{paceCalcResults.PacePerKm}</span>
+                                        </p>
+                                        <p>
+                                            <span className="font-semibold">Pace per mi:</span>{" "}
+                                            <span className="text-cyan-700">{paceCalcResults.PacePerMi}</span>
+                                        </p>
+                                        <p>
+                                            <span className="font-semibold">Speed (km/h):</span>{" "}
+                                            <span className="text-cyan-700">{paceCalcResults["PaceKm/h"]}</span>
+                                        </p>
+                                        <p>
+                                            <span className="font-semibold">Speed (mph):</span>{" "}
+                                            <span className="text-cyan-700">{paceCalcResults["PaceMi/h"]}</span>
+                                        </p>
                                     </div>
-                                </div>
+                                )}
                             </div>
+                        )}
 
-                            <button onClick={handleSubmitPaceCalculation}
-                                className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Calculate Pace</button>
-
-                            {errorMessage && (
-                                <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded">{errorMessage}</div>
-                            )}
-
-                            {paceCalcResults && (
-                                <div className="bg-gray-50 border rounded-xl p-4 space-y-2">
-                                    <p>
-                                        <span className="font-semibold">Pace per km:</span>{" "}
-                                        <span className="text-cyan-700">{paceCalcResults.PacePerKm}</span>
-                                    </p>
-                                    <p>
-                                        <span className="font-semibold">Pace per mi:</span>{" "}
-                                        <span className="text-cyan-700">{paceCalcResults.PacePerMi}</span>
-                                    </p>
-                                    <p>
-                                        <span className="font-semibold">Speed (km/h):</span>{" "}
-                                        <span className="text-cyan-700">{paceCalcResults["PaceKm/h"]}</span>
-                                    </p>
-                                    <p>
-                                        <span className="font-semibold">Speed (mph):</span>{" "}
-                                        <span className="text-cyan-700">{paceCalcResults["PaceMi/h"]}</span>
-                                    </p>
-                                </div>
-                            )}
-                        </div>
-                    )}
-
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import formatSecToPace from "../utils/FormatSecondsToTime.ts"
 import { EVENTMAP } from "../utils/EventConversionEvents.ts";
 import type { eventMapType } from "../utils/EventConversionEvents.ts";
+import { Helmet } from 'react-helmet-async';
 
 type resultsType = {
     [event: string]: string
@@ -142,120 +143,132 @@ export default function EventConversionTool() {
     }
 
     return (
-        <div className="flex flex-col gap-2 relative">
-            <h1 className="font-sans font-bold text-4xl m-2 text-center">RunCalcs Event Conversion Tool</h1>
+        <>
+            <Helmet>
+                <title>Running Event Conversion Calculator | RunCalcs</title>
+                <meta name="description" content="Convert your performance between similar running events. Find your equivalent mile, 1500m, 5K time, and more." />
+                <meta name="keywords" content="running event converter, mile to 1500, 1500 to mile, 1500 to 1600, 1600 to 1500, race equivalent calculator, 5k to 10k, world athletics points equivalency, event performance conversion, road to track conversion" />
+                <link rel="canonical" href="https://runcalcs.ca/events" />
+                <meta property="og:title" content="Running Event Conversion Calculator | RunCalcs" />
+                <meta property="og:description" content="Convert your performance between similar running events. Find your equivalent mile, 1500m, 5K time, and more." />
+                <meta property="og:url" content="https://runcalcs.ca/events" />
+            </Helmet>
 
-            {/*Page body*/}
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-2 relative">
+                <h1 className="font-sans font-bold text-4xl m-2 text-center">RunCalcs Event Conversion Tool</h1>
 
-                {/*Calculator body*/}
-                <div className="relative flex justify-center gap-10 flex-wrap">
-                    
-                    {/*Calculator card*/}
-                    <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md space-y-6">
-                        <h2 className="text-xl font-bold text-gray-800">Event Conversion</h2>
+                {/*Page body*/}
+                <div className="flex flex-col">
 
-                        <div className="space-y-4">
+                    {/*Calculator body*/}
+                    <div className="relative flex justify-center gap-10 flex-wrap">
+                        
+                        {/*Calculator card*/}
+                        <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md space-y-6">
+                            <h2 className="text-xl font-bold text-gray-800">Event Conversion</h2>
 
-                            {/*Event Type input*/}
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Event Type</label>
-                                <div className="flex gap-2">
+                            <div className="space-y-4">
 
-                                    <select value={eventType} onChange={(e) => handleEventTypeChange(e)} className="w-full rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
-                                        {Object.keys(EVENTMAP).map((eType, i) => (
-                                            <option key={i} value={eType}>{eType}</option>
+                                {/*Event Type input*/}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Event Type</label>
+                                    <div className="flex gap-2">
+
+                                        <select value={eventType} onChange={(e) => handleEventTypeChange(e)} className="w-full rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
+                                            {Object.keys(EVENTMAP).map((eType, i) => (
+                                                <option key={i} value={eType}>{eType}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                {/*Event Gender input*/}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Gender Category</label>
+                                    <div className="flex gap-2">
+
+                                        <select value={genderType} onChange={(e) => handleSelectedGenderChange(e)} className="w-full rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
+                                            <option key="0" value="men">Men</option>
+                                            <option key="1" value="women">Women</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                {/*Event Selection input*/}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Event</label>
+                                    <div className="flex gap-2">
+
+                                        <select value={selectedEvent} onChange={(e) => handleSelectedEventChange(e)} className="w-full rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
+                                            {Object.entries(EVENTMAP[eventType]).map(([key, display]) => (
+                                                <option key={key} value={key}>{display}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                {/*Event Mark input*/}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Time (hh:mm:ss.ss)</label>
+                                    <div className="flex gap-2">
+                                        <input type="number" placeholder="hh" value={hours} onChange={(e) => setHours(e.target.value)}
+                                            className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+
+                                        <span className="self-center">:</span>
+
+                                        <input type="number" placeholder="mm" value={minutes} onChange={(e) => setMinutes(e.target.value)}
+                                            className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+
+                                        <span className="self-center">:</span>
+
+                                        <input type="number" placeholder="ss" value={seconds} onChange={(e) => setSeconds(e.target.value)}
+                                            className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                    </div>
+                                </div>
+
+                                <button onClick={handleCalculateConversions}
+                                    className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Calculate Conversions</button>
+
+                                {errorMessage && (
+                                    <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded">{errorMessage}</div>
+                                )}
+
+                                {results && Object.keys(results).length > 0 && (
+                                    <div className="bg-gray-50 border rounded-xl p-4 space-y-2">
+                                        {/* <p>
+                                            <span className="font-semibold">Km:</span>{" "}
+                                            <span className="text-cyan-700">{distanceCalcResults.km}</span>
+                                        </p> */}
+
+                                        {Object.entries(results).map(([e, time]) => (
+                                            <p>
+                                                <span className="font-semibold">{e}:</span>{" "}
+                                                <span className="text-cyan-700">{time}</span>
+                                            </p>
                                         ))}
-                                    </select>
-                                </div>
+
+                                    </div>
+                                )}
                             </div>
 
-                            {/*Event Gender input*/}
+                        </div>
+
+                        {/*About section*/}
+                        <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md space-y-6">
+                            <h2 className="text-xl font-bold text-gray-800">About the Calculator</h2>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Gender Category</label>
-                                <div className="flex gap-2">
-
-                                    <select value={genderType} onChange={(e) => handleSelectedGenderChange(e)} className="w-full rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
-                                        <option key="0" value="men">Men</option>
-                                        <option key="1" value="women">Women</option>
-                                    </select>
-                                </div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">How do event conversions work?</label>
+                                <p className="block text-xs font-medium text-gray-600 mb-1">Event conversions are done primarily using World Athletics points. In the case an event doesn't exist in the World Athletics scoring tables, conversions are simply done by calculating the pace for the selected event and then calculating how long it would take to run the destination event at that pace. If you're interested, see my GitHub for more!</p>
                             </div>
-
-                            {/*Event Selection input*/}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Event</label>
-                                <div className="flex gap-2">
-
-                                    <select value={selectedEvent} onChange={(e) => handleSelectedEventChange(e)} className="w-full rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
-                                        {Object.entries(EVENTMAP[eventType]).map(([key, display]) => (
-                                            <option key={key} value={key}>{display}</option>
-                                        ))}
-                                    </select>
-                                </div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">How do you use the event conversions tool?</label>
+                                <p className="block text-xs font-medium text-gray-600 mb-1">Select an event type (Track, Short (aka Indoor), or Road), then select a gender category. Next, select the event you wish to convert from the "Event" dropdown and enter the time to convert. Hit calculate, and you will receive a list of events with converted times.</p>
                             </div>
-
-                            {/*Event Mark input*/}
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Time (hh:mm:ss.ss)</label>
-                                <div className="flex gap-2">
-                                    <input type="number" placeholder="hh" value={hours} onChange={(e) => setHours(e.target.value)}
-                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
-
-                                    <span className="self-center">:</span>
-
-                                    <input type="number" placeholder="mm" value={minutes} onChange={(e) => setMinutes(e.target.value)}
-                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
-
-                                    <span className="self-center">:</span>
-
-                                    <input type="number" placeholder="ss" value={seconds} onChange={(e) => setSeconds(e.target.value)}
-                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
-                                </div>
-                            </div>
-
-                            <button onClick={handleCalculateConversions}
-                                className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Calculate Conversions</button>
-
-                            {errorMessage && (
-                                <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded">{errorMessage}</div>
-                            )}
-
-                            {results && Object.keys(results).length > 0 && (
-                                <div className="bg-gray-50 border rounded-xl p-4 space-y-2">
-                                    {/* <p>
-                                        <span className="font-semibold">Km:</span>{" "}
-                                        <span className="text-cyan-700">{distanceCalcResults.km}</span>
-                                    </p> */}
-
-                                    {Object.entries(results).map(([e, time]) => (
-                                        <p>
-                                            <span className="font-semibold">{e}:</span>{" "}
-                                            <span className="text-cyan-700">{time}</span>
-                                        </p>
-                                    ))}
-
-                                </div>
-                            )}
                         </div>
 
                     </div>
-
-                    {/*About section*/}
-                    <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md space-y-6">
-                        <h2 className="text-xl font-bold text-gray-800">About the Calculator</h2>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">How do event conversions work?</label>
-                            <p className="block text-xs font-medium text-gray-600 mb-1">Event conversions are done primarily using World Athletics points. In the case an event doesn't exist in the World Athletics scoring tables, conversions are simply done by calculating the pace for the selected event and then calculating how long it would take to run the destination event at that pace. If you're interested, see my GitHub for more!</p>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">How do you use the event conversions tool?</label>
-                            <p className="block text-xs font-medium text-gray-600 mb-1">Select an event type (Track, Short (aka Indoor), or Road), then select a gender category. Next, select the event you wish to convert from the "Event" dropdown and enter the time to convert. Hit calculate, and you will receive a list of events with converted times.</p>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-        </div>
+        </>
     );
 }
