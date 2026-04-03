@@ -118,7 +118,7 @@ export default function PaceCalculator() {
         fetch(url)
             .then(res => {
                 if (!res.ok) {
-                throw new Error(`HTTP error! Status: ${res.status}`);
+                    throw new Error(`HTTP error! Status: ${res.status}`);
                 }
                 return res.json();
             })
@@ -179,7 +179,7 @@ export default function PaceCalculator() {
         fetch(url)
             .then(res => {
                 if (!res.ok) {
-                throw new Error(`HTTP error! Status: ${res.status}`);
+                    throw new Error(`HTTP error! Status: ${res.status}`);
                 }
                 return res.json();
             })

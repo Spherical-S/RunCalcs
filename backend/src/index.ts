@@ -10,6 +10,7 @@ import splitsCalculatorRoute from "./routes/splits-calculation.js";
 import steepleSplitsCalculatorRoute from "./routes/steeplechase-splits-calculator.js";
 import timeConverterRoute from "./routes/time-converter.js";
 import flatBankedConverterRoute from "./routes/flat-banked-converter.js";
+import gradeAdjustedPaceCalculatorRoute from "./routes/grade-adjusted-pace-calculator.js";
 
 const app = express();
 app.use(cors());
@@ -40,6 +41,7 @@ app.use("/api/splitscalc", splitsCalculatorRoute);
 app.use("/api/steeplesplitscalc", steepleSplitsCalculatorRoute);
 app.use("/api/timeconverter", timeConverterRoute);
 app.use("/api/flatbankedconverter", flatBankedConverterRoute);
+app.use("/api/gradeadjustedpacecalc", gradeAdjustedPaceCalculatorRoute);
 
 app.listen(3001, () => {
     console.log("API running on http://localhost:3001");

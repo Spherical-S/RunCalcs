@@ -16,6 +16,7 @@ Instead of visiting multiple websites for pace, splits, conversions, and perform
 - **Steeplechase Laps Calculator** – Estimate lap times depending on water pit location 
 - **Event Conversion Tool** – Convert performances between similar events 
 - **Flat/Banked Track Converter** – Calculate between flat, banked, and undersized indoor tracks 
+- **Elevation Pace Calculator** – Calculate how fast you can run on a flat surface given a run or pace with elevation
 - **About Page** – Project details and contact information  
 
 ---
