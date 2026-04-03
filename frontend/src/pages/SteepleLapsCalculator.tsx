@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import formatSecToPace from "../utils/FormatSecondsToTime.ts"
+import { Helmet } from 'react-helmet-async';
 
 
 export default function SteepleLapsCalculator() {
@@ -144,113 +145,125 @@ export default function SteepleLapsCalculator() {
     }
 
     return (
-        <div className="flex flex-col gap-2 relative">
-            <h1 className="font-sans font-bold text-4xl m-2 text-center">RunCalcs Steeplechase Lap Time Calculator</h1>
+        <>
+            <Helmet>
+                <title>Steeplechase Lap Splits Calculator | RunCalcs</title>
+                <meta name="description" content="Calculate per-lap splits for steeplechase races with inside or outside water pits for any target time or pace." />
+                <meta name="keywords" content="steeplechase calculator, steeple lap splits, inside water pit, outside water pit, 395m steeplechase, 418m steeplechase, steeplechase pace" />
+                <link rel="canonical" href="https://runcalcs.ca/steeple-laps" />
+                <meta property="og:title" content="Steeplechase Lap Splits Calculator | RunCalcs" />
+                <meta property="og:description" content="Calculate per-lap splits for steeplechase races with inside or outside water pits for any target time or pace." />
+                <meta property="og:url" content="https://runcalcs.ca/steeple-laps" />
+            </Helmet>
 
-            {/*Page body*/}
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-2 relative">
+                <h1 className="font-sans font-bold text-4xl m-2 text-center">RunCalcs Steeplechase Lap Time Calculator</h1>
 
-                {/*Calculator body*/}
-                <div className="relative flex justify-center gap-10 flex-col">
-                    
-                    {/*Calculator card*/}
-                    <div className="bg-white rounded-2xl shadow-xl p-6 space-y-6 w-full max-w-125 mt-6 mx-auto">
-                        <h2 className="text-xl font-bold text-gray-800">Steeple Lap Calculator</h2>
+                {/*Page body*/}
+                <div className="flex flex-col">
 
-                        <div className="space-y-4">
+                    {/*Calculator body*/}
+                    <div className="relative flex justify-center gap-10 flex-col">
+                        
+                        {/*Calculator card*/}
+                        <div className="bg-white rounded-2xl shadow-xl p-6 space-y-6 w-full max-w-125 mt-6 mx-auto">
+                            <h2 className="text-xl font-bold text-gray-800">Steeple Lap Calculator</h2>
 
-                            {/* Pace inputs */}
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">{(paceUnit === "PacePerKm" || paceUnit === "PacePerMi" || paceUnit === "TotalTime") ? "Pace or Time (hh:mm:ss.ss)":"Pace"}</label>
-                                <div className="flex gap-2">
+                            <div className="space-y-4">
 
-                                    {(paceUnit === "PacePerKm" || paceUnit === "PacePerMi" || paceUnit === "TotalTime") &&(
-                                        <>
-                                            <input type="number" placeholder="hh" value={hours} onChange={(e) => setHours(e.target.value)}
-                                                className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
-
-                                            <span className="self-center">:</span>
-
-                                            <input type="number" placeholder="mm" value={minutes} onChange={(e) => setMinutes(e.target.value)}
-                                                className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
-
-                                            <span className="self-center">:</span>
-
-                                            <input type="number" placeholder="ss" value={seconds} onChange={(e) => setSeconds(e.target.value)}
-                                                className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
-                                        </>
-                                    )}
-
-                                    {(paceUnit === "PaceKm/h" || paceUnit === "PaceMi/h") &&(
-                                        <>
-                                            <input type="number" placeholder="0" value={pacePerHour} onChange={(e) => setPacePerHour(e.target.value)}
-                                                className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
-                                        </>
-                                    )}
-                                    
-
-                                    <select value={paceUnit} onChange={(e) => setPaceUnit(e.target.value)}
-                                        className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
-                                        <option value="TotalTime">Total Time</option>
-                                        <option value="PacePerKm">Per km</option>
-                                        <option value="PacePerMi">Per mi</option>
-                                        <option value="PaceKm/h">km/h</option>
-                                        <option value="PaceMi/h">mi/h</option>
-                                    </select>
-
-                                </div>
-                            </div>
-
-                            {/* Distance input */}
-                            {paceUnit === "TotalTime" &&(
+                                {/* Pace inputs */}
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Distance</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">{(paceUnit === "PacePerKm" || paceUnit === "PacePerMi" || paceUnit === "TotalTime") ? "Pace or Time (hh:mm:ss.ss)":"Pace"}</label>
                                     <div className="flex gap-2">
-                                        <input type="number" placeholder="0" value={distance} onChange={(e) => setDistance(e.target.value)}
-                                            className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
 
-                                        <select value={distanceUnit} onChange={(e) => setDistanceUnit(e.target.value)}
+                                        {(paceUnit === "PacePerKm" || paceUnit === "PacePerMi" || paceUnit === "TotalTime") &&(
+                                            <>
+                                                <input type="number" placeholder="hh" value={hours} onChange={(e) => setHours(e.target.value)}
+                                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+
+                                                <span className="self-center">:</span>
+
+                                                <input type="number" placeholder="mm" value={minutes} onChange={(e) => setMinutes(e.target.value)}
+                                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+
+                                                <span className="self-center">:</span>
+
+                                                <input type="number" placeholder="ss" value={seconds} onChange={(e) => setSeconds(e.target.value)}
+                                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                            </>
+                                        )}
+
+                                        {(paceUnit === "PaceKm/h" || paceUnit === "PaceMi/h") &&(
+                                            <>
+                                                <input type="number" placeholder="0" value={pacePerHour} onChange={(e) => setPacePerHour(e.target.value)}
+                                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                            </>
+                                        )}
+                                        
+
+                                        <select value={paceUnit} onChange={(e) => setPaceUnit(e.target.value)}
                                             className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
-                                            <option value="km">km</option>
-                                            <option value="mi">mi</option>
-                                            <option value="m">m</option>
-                                            <option value="yds">yds</option>
+                                            <option value="TotalTime">Total Time</option>
+                                            <option value="PacePerKm">Per km</option>
+                                            <option value="PacePerMi">Per mi</option>
+                                            <option value="PaceKm/h">km/h</option>
+                                            <option value="PaceMi/h">mi/h</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                {/* Distance input */}
+                                {paceUnit === "TotalTime" &&(
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Distance</label>
+                                        <div className="flex gap-2">
+                                            <input type="number" placeholder="0" value={distance} onChange={(e) => setDistance(e.target.value)}
+                                                className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
+
+                                            <select value={distanceUnit} onChange={(e) => setDistanceUnit(e.target.value)}
+                                                className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
+                                                <option value="km">km</option>
+                                                <option value="mi">mi</option>
+                                                <option value="m">m</option>
+                                                <option value="yds">yds</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Pit Type Input */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Pit Location</label>
+                                    <div className="flex gap-2">
+                                        <select value={pitType} onChange={(e) => setPitType(e.target.value)}
+                                            className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
+                                            <option value="outside">Outside Pit (~418m)</option>
+                                            <option value="inside">Inside Pit (~395m)</option>
                                         </select>
                                     </div>
                                 </div>
-                            )}
 
-                            {/* Pit Type Input */}
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Pit Location</label>
-                                <div className="flex gap-2">
-                                    <select value={pitType} onChange={(e) => setPitType(e.target.value)}
-                                        className="rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
-                                        <option value="outside">Outside Pit (~418m)</option>
-                                        <option value="inside">Inside Pit (~395m)</option>
-                                    </select>
-                                </div>
+                                <button onClick={ paceUnit === "TotalTime" ? handleSplitsByTime : handleSplitsByPace}
+                                    className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Calculate Splits</button>
+
+                                {errorMessage && (
+                                    <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded">{errorMessage}</div>
+                                )}
+
+                                {results && (
+                                    <div className="bg-gray-50 border rounded-xl p-4 space-y-2">
+                                        <p>
+                                            <span className="font-semibold">Time per Lap:</span>{" "}
+                                            <span className="text-cyan-700">{results}</span>
+                                        </p>
+                                    </div>
+                                )}
                             </div>
-
-                            <button onClick={ paceUnit === "TotalTime" ? handleSplitsByTime : handleSplitsByPace}
-                                className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Calculate Splits</button>
-
-                            {errorMessage && (
-                                <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded">{errorMessage}</div>
-                            )}
-
-                            {results && (
-                                <div className="bg-gray-50 border rounded-xl p-4 space-y-2">
-                                    <p>
-                                        <span className="font-semibold">Time per Lap:</span>{" "}
-                                        <span className="text-cyan-700">{results}</span>
-                                    </p>
-                                </div>
-                            )}
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
