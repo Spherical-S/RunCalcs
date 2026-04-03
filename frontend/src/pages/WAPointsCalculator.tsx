@@ -2,21 +2,21 @@ import { useState, useEffect } from "react";
 import { EVENTMAP } from "../utils/WAPointsEvents.ts";
 import type { eventMapType, typeGenders } from "../utils/WAPointsEvents.ts";
 
-function isTimeBasedEvent(eventType: keyof eventMapType, event: string){
+function isTimeBasedEvent(eventType: keyof eventMapType, event: string) {
 
-    if(eventType === "Field"){
+    if (eventType === "Field") {
         return false;
     }
 
-    if(eventType === "Road"){
+    if (eventType === "Road") {
         return true;
     }
 
-    if(eventType === "Short"){
+    if (eventType === "Short") {
         return !(event === "Pent.sh" || event === "Hept.sh");
     }
 
-    if(eventType === "Track"){
+    if (eventType === "Track") {
         return !(event === "Dec." || event === "Hept.");
     }
 
@@ -43,8 +43,8 @@ export default function WAPointsCalculator() {
     }, []);
 
     useEffect(() => {
-            const url = import.meta.env.VITE_API_URL + "/ping"
-            fetch(url)
+        const url = import.meta.env.VITE_API_URL + "/ping"
+        fetch(url)
             .then(res => {
                 if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
@@ -58,13 +58,13 @@ export default function WAPointsCalculator() {
     }, []);
 
     useEffect(() => {
-            const pts = points === "" ? 0 : Number(points);
-            if(!(pts === 0)){
-                handleCalculateMark();
-            }
+        const pts = points === "" ? 0 : Number(points);
+        if (!(pts === 0)) {
+            handleCalculateMark();
+        }
     }, [selectedEvent, genderType, eventType, interpolate]);
 
-    function handleReset(){
+    function handleReset() {
         setErrorMessage("");
         setMark("");
         setMarkHours("");
@@ -73,50 +73,50 @@ export default function WAPointsCalculator() {
         setPoints("");
     }
 
-    function handleEventTypeChange(e: any){
+    function handleEventTypeChange(e: any) {
 
         setErrorMessage("");
 
         setEventType(e.target.value);
 
-        if (e.target.value === "Track"){
+        if (e.target.value === "Track") {
             setSelectedEvent("1500m");
         }
-        if (e.target.value === "Field"){
+        if (e.target.value === "Field") {
             setSelectedEvent("LJ");
         }
-        if (e.target.value === "Short"){
+        if (e.target.value === "Short") {
             setSelectedEvent("1500msh");
         }
-        if (e.target.value === "Road"){
+        if (e.target.value === "Road") {
             setSelectedEvent("RoadHM");
         }
 
     }
 
-    function handleGenderTypeChange(e: any){
+    function handleGenderTypeChange(e: any) {
 
         setErrorMessage("");
 
         setGenderType(e.target.value);
-        if(!(selectedEvent in EVENTMAP[eventType][e.target.value as keyof typeGenders])){
-            if (eventType === "Track"){
+        if (!(selectedEvent in EVENTMAP[eventType][e.target.value as keyof typeGenders])) {
+            if (eventType === "Track") {
                 setSelectedEvent("1500m");
             }
-            if (eventType === "Field"){
+            if (eventType === "Field") {
                 setSelectedEvent("LJ");
             }
-            if (eventType === "Short"){
+            if (eventType === "Short") {
                 setSelectedEvent("1500msh");
             }
-            if (eventType === "Road"){
+            if (eventType === "Road") {
                 setSelectedEvent("RoadHM");
             }
         }
 
     }
 
-    function handleSelectedEventChange(e: any){
+    function handleSelectedEventChange(e: any) {
 
         setErrorMessage("");
 
@@ -124,11 +124,11 @@ export default function WAPointsCalculator() {
 
     }
 
-    function handleInterpolateToggle(){
+    function handleInterpolateToggle() {
         setInterpolate(!interpolate);
     }
 
-    function handleCalculatePoints(){
+    function handleCalculatePoints() {
 
         setErrorMessage("");
 
@@ -138,19 +138,19 @@ export default function WAPointsCalculator() {
         const m = mark === "" ? 0 : Number(mark);
         const i = interpolate ? 1 : 0;
 
-        var perf = 0;
+        let perf = 0;
 
-        if(isTimeBasedEvent(eventType, selectedEvent)){
+        if (isTimeBasedEvent(eventType, selectedEvent)) {
 
-            if(mhrs < 0){
+            if (mhrs < 0) {
                 setMarkHours("");
                 return;
             }
-            if(mmins < 0){
+            if (mmins < 0) {
                 setMarkMinutes("");
                 return;
             }
-            if(msecs < 0){
+            if (msecs < 0) {
                 setMarkSeconds("");
                 return;
             }
@@ -159,9 +159,9 @@ export default function WAPointsCalculator() {
 
         }
 
-        if(!isTimeBasedEvent(eventType, selectedEvent)){
+        if (!isTimeBasedEvent(eventType, selectedEvent)) {
             
-            if(m < 0){
+            if (m < 0) {
                 setMark("");
                 return;
             }
@@ -170,12 +170,12 @@ export default function WAPointsCalculator() {
             
         }
 
-        var url = import.meta.env.VITE_API_URL + `/wapointscalc/perftopts?category=${eventType.toLowerCase()}&gender=${genderType.toLowerCase()}&event=${selectedEvent}&target=${perf}&interpolate=${i}`;
+        const url = import.meta.env.VITE_API_URL + `/wapointscalc/perftopts?category=${eventType.toLowerCase()}&gender=${genderType.toLowerCase()}&event=${selectedEvent}&target=${perf}&interpolate=${i}`;
 
         fetch(url)
             .then(res => {
                 if (!res.ok) {
-                throw new Error(`HTTP error! Status: ${res.status}`);
+                    throw new Error(`HTTP error! Status: ${res.status}`);
                 }
                 return res.json();
             })
@@ -189,41 +189,41 @@ export default function WAPointsCalculator() {
 
     }
 
-    function handleCalculateMark(){
+    function handleCalculateMark() {
 
         setErrorMessage("");
 
         const pts = points === "" ? 0 : Number(points);
         const i = interpolate ? 1 : 0;
 
-        if(pts < 0){
+        if (pts < 0) {
             setPoints("");
             return;
         }
 
-        if(pts === 0){
+        if (pts === 0) {
             setErrorMessage("Minimum value for points is 1");
             setPoints("");
             return;
         }
 
-        if(pts > 1400){
+        if (pts > 1400) {
             setErrorMessage("Maximum value for points is 1400");
             setPoints("");
             return;
         }
 
-        var url = import.meta.env.VITE_API_URL + `/wapointscalc/ptstoperf?category=${eventType.toLowerCase()}&gender=${genderType.toLowerCase()}&event=${selectedEvent}&target=${pts}&interpolate=${i}`;
+        const url = import.meta.env.VITE_API_URL + `/wapointscalc/ptstoperf?category=${eventType.toLowerCase()}&gender=${genderType.toLowerCase()}&event=${selectedEvent}&target=${pts}&interpolate=${i}`;
 
         fetch(url)
             .then(res => {
                 if (!res.ok) {
-                throw new Error(`HTTP error! Status: ${res.status}`);
+                    throw new Error(`HTTP error! Status: ${res.status}`);
                 }
                 return res.json();
             })
             .then(data => {
-                if(isTimeBasedEvent(eventType, selectedEvent)){
+                if (isTimeBasedEvent(eventType, selectedEvent)) {
 
                     const secs = Number(data.mark);
 
@@ -245,7 +245,7 @@ export default function WAPointsCalculator() {
                         setMarkSeconds(String(seconds));
                     }
 
-                }else{
+                } else {
                     
                     setMark(String(data.mark));
                     
@@ -281,7 +281,7 @@ export default function WAPointsCalculator() {
 
                                     <select value={eventType} onChange={(e) => handleEventTypeChange(e)} className="w-full rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
                                         {Object.keys(EVENTMAP).map((eType, i) => (
-                                        <option key={i} value={eType}>{eType}</option>
+                                            <option key={i} value={eType}>{eType}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -294,7 +294,7 @@ export default function WAPointsCalculator() {
 
                                     <select value={genderType} onChange={(e) => handleGenderTypeChange(e)} className="w-full rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
                                         {Object.keys(EVENTMAP[eventType]).map((gType, i) => (
-                                        <option key={i} value={gType}>{gType}</option>
+                                            <option key={i} value={gType}>{gType}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -307,7 +307,7 @@ export default function WAPointsCalculator() {
 
                                     <select value={selectedEvent} onChange={(e) => handleSelectedEventChange(e)} className="w-full rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
                                         {Object.entries(EVENTMAP[eventType][genderType]).map(([key, display]) => (
-                                        <option key={key} value={key}>{display}</option>
+                                            <option key={key} value={key}>{display}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -320,7 +320,7 @@ export default function WAPointsCalculator() {
 
                                     <button type="button" onClick={handleInterpolateToggle} className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors hover:cursor-pointer ${interpolate ? "bg-cyan-600" : "bg-gray-300"}`}>
                                         <span
-                                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${interpolate ? "translate-x-6" : "translate-x-1"}`}/>
+                                            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${interpolate ? "translate-x-6" : "translate-x-1"}`}/>
                                     </button>
                                 </div>
                             </div>
@@ -332,25 +332,25 @@ export default function WAPointsCalculator() {
 
                                     {isTimeBasedEvent(eventType, selectedEvent) && (
                                         <>
-                                        <input type="number" placeholder="hh" value={markHours} onChange={(e) => setMarkHours(e.target.value)} onBlur={handleCalculatePoints}
-                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                            <input type="number" placeholder="hh" value={markHours} onChange={(e) => setMarkHours(e.target.value)} onBlur={handleCalculatePoints}
+                                                className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
-                                        <span className="self-center">:</span>
+                                            <span className="self-center">:</span>
 
-                                        <input type="number" placeholder="mm" value={markMinutes} onChange={(e) => setMarkMinutes(e.target.value)} onBlur={handleCalculatePoints}
-                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                            <input type="number" placeholder="mm" value={markMinutes} onChange={(e) => setMarkMinutes(e.target.value)} onBlur={handleCalculatePoints}
+                                                className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
-                                        <span className="self-center">:</span>
+                                            <span className="self-center">:</span>
 
-                                        <input type="number" placeholder="ss" value={markSeconds} onChange={(e) => setMarkSeconds(e.target.value)} onBlur={handleCalculatePoints}
-                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                            <input type="number" placeholder="ss" value={markSeconds} onChange={(e) => setMarkSeconds(e.target.value)} onBlur={handleCalculatePoints}
+                                                className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
                                         </>
                                     )}
 
                                     {!isTimeBasedEvent(eventType, selectedEvent) && (
                                         <>
-                                        <input type="number" placeholder="0" value={mark} onChange={(e) => setMark(e.target.value)} onBlur={handleCalculatePoints}
-                                        className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
+                                            <input type="number" placeholder="0" value={mark} onChange={(e) => setMark(e.target.value)} onBlur={handleCalculatePoints}
+                                                className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
                                         </>
                                     )}
 
@@ -363,13 +363,13 @@ export default function WAPointsCalculator() {
                                 <div className="flex gap-2">
 
                                     <input type="number" placeholder="0" value={points} onChange={(e) => setPoints(e.target.value)} onBlur={handleCalculateMark}
-                                    className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
+                                        className="w-24 rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500" />
 
                                 </div>
                             </div>
 
                             <button onClick={handleReset}
-                            className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Reset</button>
+                                className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Reset</button>
 
                             {errorMessage && (
                                 <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded">{errorMessage}</div>

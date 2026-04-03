@@ -1,6 +1,6 @@
-export default function Footer(){
+export default function Footer() {
 
-    return(
+    return (
 
         <div className="bg-gray-700 text-center flex-col mt-5">
             <p className="m-5 text-white">This webapp was made with blood, sweat, and carbs, brought to you by Sadiq Shahid ❤️</p>

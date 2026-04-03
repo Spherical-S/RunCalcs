@@ -5,7 +5,7 @@ export type eventMapType = {
 }
 
 export const EVENTMAP: eventMapType = {
-	"Short": {
+    "Short": {
         "200msh": "200m",
         "300msh": "300m",
         "400msh": "400m",
@@ -20,8 +20,8 @@ export const EVENTMAP: eventMapType = {
         "3200msh": "3200m",
         "2Milessh": "2 Miles",
         "5000msh": "5000m"
-	},
-	"Track": {
+    },
+    "Track": {
         "50m": "50m",
         "55m": "55m",
         "60m": "60m",
@@ -47,8 +47,8 @@ export const EVENTMAP: eventMapType = {
         "60mH": "60m Hurdles",
         "100mH": "100m Hurdles",
         "110mH": "110m Hurdles",
-	},
-	"Road": {
+    },
+    "Road": {
         "RoadMile": "Mile",
         "Road5km": "5km",
         "Road3Miles": "3 Miles",
@@ -61,5 +61,5 @@ export const EVENTMAP: eventMapType = {
         "Road25km": "25km",
         "Road30km": "30km",
         "RoadMarathon": "Marathon"
-	}
+    }
 }

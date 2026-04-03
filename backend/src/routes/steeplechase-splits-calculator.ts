@@ -18,16 +18,16 @@ router.get("/bypace", (req, res) => {
     const paceUnit = Number(req.query.paceUnit);
     const pitType = String(req.query.pitType);
 
-    if (isNaN(pace) || isNaN(paceUnit)){
-        return res.status(400).json({error: "Invalid or missing parameters"});
+    if (isNaN(pace) || isNaN(paceUnit)) {
+        return res.status(400).json({ error: "Invalid or missing parameters" });
     }
 
-    if(pace <= 0 || paceUnit < 0 || paceUnit > 3){
-        return res.status(400).json({error: "Invalid parameters"});
+    if (pace <= 0 || paceUnit < 0 || paceUnit > 3) {
+        return res.status(400).json({ error: "Invalid parameters" });
     }
 
-    if(!validPitTypes.includes(pitType)){
-        return res.status(400).json({error: "Invalid pit type (inside or outside)"});
+    if (!validPitTypes.includes(pitType)) {
+        return res.status(400).json({ error: "Invalid pit type (inside or outside)" });
     }
 
     const result = steepleSplitsByPace(pace, paceUnit, pitType);
@@ -43,16 +43,16 @@ router.get("/bytime", (req, res) => {
     const distUnit = Number(req.query.distUnit);
     const pitType = String(req.query.pitType);
 
-    if (isNaN(time) || isNaN(distance) || isNaN(distUnit)){
-        return res.status(400).json({error: "Invalid or missing parameters"});
+    if (isNaN(time) || isNaN(distance) || isNaN(distUnit)) {
+        return res.status(400).json({ error: "Invalid or missing parameters" });
     }
 
-    if(time <= 0 || distUnit < 0 || distUnit > 3 || distance <= 0){
-        return res.status(400).json({error: "Invalid parameters"});
+    if (time <= 0 || distUnit < 0 || distUnit > 3 || distance <= 0) {
+        return res.status(400).json({ error: "Invalid parameters" });
     }
 
-    if(!validPitTypes.includes(pitType)){
-        return res.status(400).json({error: "Invalid pit type (inside or outside)"});
+    if (!validPitTypes.includes(pitType)) {
+        return res.status(400).json({ error: "Invalid pit type (inside or outside)" });
     }
 
     const result = steepleSplitsByTime(time, distance, distUnit, pitType);
@@ -66,16 +66,16 @@ router.get("/by400m", (req, res) => {
     const time = Number(req.query.time);
     const pitType = String(req.query.pitType);
 
-    if (isNaN(time)){
-        return res.status(400).json({error: "Invalid or missing parameters"});
+    if (isNaN(time)) {
+        return res.status(400).json({ error: "Invalid or missing parameters" });
     }
 
-    if(time <= 0){
-        return res.status(400).json({error: "Invalid parameters"});
+    if (time <= 0) {
+        return res.status(400).json({ error: "Invalid parameters" });
     }
 
-    if(!validPitTypes.includes(pitType)){
-        return res.status(400).json({error: "Invalid pit type (inside or outside)"});
+    if (!validPitTypes.includes(pitType)) {
+        return res.status(400).json({ error: "Invalid pit type (inside or outside)" });
     }
 
     const result = steepleSplitsBy400m(time, pitType);

@@ -16,12 +16,12 @@ router.get("/distance", (req, res) => {
     const pace = Number(req.query.pace);
     const unit = Number(req.query.unit);
 
-    if(isNaN(time) || isNaN(pace) || isNaN(unit)){
-        return res.status(400).json({error: "Invalid or missing parameters"});
+    if (isNaN(time) || isNaN(pace) || isNaN(unit)) {
+        return res.status(400).json({ error: "Invalid or missing parameters" });
     }
 
-    if (unit > 3 || unit < 0 || time < 0 || pace <= 0){
-        return res.status(400).json({error: "Invalid parameters"});
+    if (unit > 3 || unit < 0 || time < 0 || pace <= 0) {
+        return res.status(400).json({ error: "Invalid parameters" });
     }
 
     const result = calculateDistance(time, pace, unit);
@@ -36,12 +36,12 @@ router.get("/pace", (req, res) => {
     const distance = Number(req.query.distance);
     const unit = Number(req.query.unit);
 
-    if(isNaN(time) || isNaN(distance) || isNaN(unit)){
-        return res.status(400).json({error: "Invalid or missing parameters"});
+    if (isNaN(time) || isNaN(distance) || isNaN(unit)) {
+        return res.status(400).json({ error: "Invalid or missing parameters" });
     }
 
-    if (unit > 3 || unit < 0 || time < 0 || distance <= 0){
-        return res.status(400).json({error: "Invalid parameters"});
+    if (unit > 3 || unit < 0 || time < 0 || distance <= 0) {
+        return res.status(400).json({ error: "Invalid parameters" });
     }
 
     const result = calculatePace(time, distance, unit);
@@ -57,12 +57,12 @@ router.get("/time", (req, res) => {
     const paceUnit = Number(req.query.paceUnit);
     const distUnit = Number(req.query.distUnit);
 
-    if(isNaN(pace) || isNaN(distance) || isNaN(paceUnit) || isNaN(distUnit)){
-        return res.status(400).json({error: "Invalid or missing parameters"});
+    if (isNaN(pace) || isNaN(distance) || isNaN(paceUnit) || isNaN(distUnit)) {
+        return res.status(400).json({ error: "Invalid or missing parameters" });
     }
 
-    if (paceUnit > 3 || paceUnit < 0 || distUnit > 3 || distUnit < 0 || pace < 0 || distance < 0){
-        return res.status(400).json({error: "Invalid parameters"});
+    if (paceUnit > 3 || paceUnit < 0 || distUnit > 3 || distUnit < 0 || pace < 0 || distance < 0) {
+        return res.status(400).json({ error: "Invalid parameters" });
     }
 
     const result = calculateTime(pace, distance, paceUnit, distUnit);

@@ -11,7 +11,7 @@ export default function formatSecToTime(time: number): string {
         return `${hours}:${pad(minutes)}:${seconds}`;
     } else if (minutes > 0) {
         return `${minutes}:${seconds}`;
-    } else{
+    } else {
         return `${seconds}`;
     }
 }

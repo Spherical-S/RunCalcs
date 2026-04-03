@@ -21,15 +21,15 @@ export default function FlatBankedTrackConverter() {
 
     const [errorMessage, setErrorMessage] = useState("Waiting for API...");
 
-    const [results, setResults] = useState({"undersized": "", "flat": "", "banked": "", "double": ""});
+    const [results, setResults] = useState({ "undersized": "", "flat": "", "banked": "", "double": "" });
 
     useEffect(() => {
         document.title = "RunCalcs: Indoor Flat/Banked Converter";
     }, []);
 
     useEffect(() => {
-            const url = import.meta.env.VITE_API_URL + "/ping"
-            fetch(url)
+        const url = import.meta.env.VITE_API_URL + "/ping"
+        fetch(url)
             .then(res => {
                 if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
@@ -42,7 +42,7 @@ export default function FlatBankedTrackConverter() {
             });
     }, []);
 
-    function handleFlatClick(){
+    function handleFlatClick() {
 
         setErrorMessage("");
         setFlatOpen(true);
@@ -51,7 +51,7 @@ export default function FlatBankedTrackConverter() {
 
     }
 
-    function handleUndersizedClick(){
+    function handleUndersizedClick() {
 
         setErrorMessage("");
         setFlatOpen(false);
@@ -60,7 +60,7 @@ export default function FlatBankedTrackConverter() {
 
     }
 
-    function handleBankedClick(){
+    function handleBankedClick() {
 
         setErrorMessage("");
         setFlatOpen(false);
@@ -69,14 +69,14 @@ export default function FlatBankedTrackConverter() {
 
     }
 
-    function handleEventChange(e: any){
+    function handleEventChange(e: any) {
 
         setErrorMessage("");
         setEvent(e.target.value);
 
-        if(Object.keys(INDOORDOUBLEMAP[e.target.value as keyof indoorDoubleMapType].doubles).length === 0 && isDouble){
+        if (Object.keys(INDOORDOUBLEMAP[e.target.value as keyof indoorDoubleMapType].doubles).length === 0 && isDouble) {
             setIsDouble(false);
-        }else{
+        } else {
             setDoubleEvent(Object.entries(INDOORDOUBLEMAP[e.target.value as keyof indoorDoubleMapType].doubles)[0][0]);
         }
 
@@ -84,18 +84,18 @@ export default function FlatBankedTrackConverter() {
 
     }
 
-    function handleGenderChange(e: any){
+    function handleGenderChange(e: any) {
 
         setErrorMessage("");
         setGender(e.target.value);
 
     }
 
-    function handleDoubleToggle(){
+    function handleDoubleToggle() {
 
         setErrorMessage("");
 
-        if(!isDouble){
+        if (!isDouble) {
             setDoubleEvent(Object.entries(INDOORDOUBLEMAP[event].doubles)[0][0]);
         }
 
@@ -103,7 +103,7 @@ export default function FlatBankedTrackConverter() {
 
     }
 
-    function handleDoubleEventChange(e: any){
+    function handleDoubleEventChange(e: any) {
 
         setErrorMessage("");
 
@@ -111,7 +111,7 @@ export default function FlatBankedTrackConverter() {
 
     }
 
-    function handleSubmitConversion(){
+    function handleSubmitConversion() {
 
         setErrorMessage("");
 
@@ -119,53 +119,53 @@ export default function FlatBankedTrackConverter() {
         const mins = minutes === "" ? 0 : Number(minutes);
         const secs = seconds === "" ? 0 : Number(seconds);
 
-        if(hrs < 0 || mins < 0 || secs < 0){
+        if (hrs < 0 || mins < 0 || secs < 0) {
             setErrorMessage("Please provide positive time values");
             return;
         }
 
-        if(hrs === 0 && mins === 0 && secs === 0){
+        if (hrs === 0 && mins === 0 && secs === 0) {
             setErrorMessage("Please provide time values");
             return;
         }
 
-        var time = secs + (mins*60) + (hrs * 60 * 60);
+        const time = secs + (mins*60) + (hrs * 60 * 60);
 
-        var url = "";
+        let url = "";
 
-        if(event === "4x200msh" || event === "4x400msh" || event === "4x800msh"){
+        if (event === "4x200msh" || event === "4x400msh" || event === "4x800msh") {
             url = import.meta.env.VITE_API_URL + `/flatbankedconverter/convert?event=${event.slice(2)}&time=${time}&gender=${gender.toLowerCase()}&isDouble=${isDouble}&doubleEvent=${doubleEvent}&isFlat=${undersizedOpen || flatOpen}&isUndersize=${undersizedOpen}`;
-        }else{
+        } else {
             url = import.meta.env.VITE_API_URL + `/flatbankedconverter/convert?event=${event}&time=${time}&gender=${gender.toLowerCase()}&isDouble=${isDouble}&doubleEvent=${doubleEvent}&isFlat=${undersizedOpen || flatOpen}&isUndersize=${undersizedOpen}`;
         }
 
         fetch(url)
-        .then(res => {
-            if (!res.ok) {
-            throw new Error(`HTTP error! Status: ${res.status}`);
-            }
-            return res.json();
-        })
-        .then(data => {
-            var undersizedTime = formatSecToTime(Number(data.undersized));
-            var flatTime = formatSecToTime(Number(data.flat));
-            var bankedTime = formatSecToTime(Number(data.banked));
-            var doubleTime;
-            console.log(data.double)
-            if(data.double === null){
-                doubleTime = "NaN";
-                setErrorMessage("Error converting double...");
-            }else if(Number(data.double) === 0){
-                doubleTime = "";
-            }else{
-                doubleTime = formatSecToTime(Number(data.double));
-            }
-            setResults({"undersized": undersizedTime, "flat": flatTime, "banked": bankedTime, "double": doubleTime});
-        })
-        .catch(err => {
-            console.error("API request failed:", err.message);
-            setErrorMessage("Invalid data or network error");
-        });
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then(data => {
+                const undersizedTime = formatSecToTime(Number(data.undersized));
+                const flatTime = formatSecToTime(Number(data.flat));
+                const bankedTime = formatSecToTime(Number(data.banked));
+                let doubleTime;
+                console.log(data.double)
+                if (data.double === null) {
+                    doubleTime = "NaN";
+                    setErrorMessage("Error converting double...");
+                } else if (Number(data.double) === 0) {
+                    doubleTime = "";
+                } else {
+                    doubleTime = formatSecToTime(Number(data.double));
+                }
+                setResults({ "undersized": undersizedTime, "flat": flatTime, "banked": bankedTime, "double": doubleTime });
+            })
+            .catch(err => {
+                console.error("API request failed:", err.message);
+                setErrorMessage("Invalid data or network error");
+            });
 
     }
 
@@ -203,7 +203,7 @@ export default function FlatBankedTrackConverter() {
 
                                         <select value={event} onChange={(e) => handleEventChange(e)} className="w-full rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
                                             {Object.keys(INDOORDOUBLEMAP).map((eType, i) => (
-                                            <option key={i} value={eType}>{INDOORDOUBLEMAP[eType].display}</option>
+                                                <option key={i} value={eType}>{INDOORDOUBLEMAP[eType].display}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -227,17 +227,17 @@ export default function FlatBankedTrackConverter() {
                                     <div className="flex gap-2">
 
                                         <input type="number" placeholder="hh" value={hours} onChange={(e) => setHours(e.target.value)}
-                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                            className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                         <span className="self-center">:</span>
 
                                         <input type="number" placeholder="mm" value={minutes} onChange={(e) => setMinutes(e.target.value)}
-                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                            className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                         <span className="self-center">:</span>
 
                                         <input type="number" placeholder="ss" value={seconds} onChange={(e) => setSeconds(e.target.value)}
-                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                            className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                     </div>
                                 </div>
@@ -249,7 +249,7 @@ export default function FlatBankedTrackConverter() {
 
                                         <button type="button" onClick={handleDoubleToggle} className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors hover:cursor-pointer ${isDouble ? "bg-cyan-600" : "bg-gray-300"}`}>
                                             <span
-                                            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${isDouble ? "translate-x-6" : "translate-x-1"}`}/>
+                                                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${isDouble ? "translate-x-6" : "translate-x-1"}`}/>
                                         </button>
                                     </div>
                                 </div>
@@ -262,7 +262,7 @@ export default function FlatBankedTrackConverter() {
 
                                             <select value={doubleEvent} onChange={(e) => handleDoubleEventChange(e)} className="w-full rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
                                                 {Object.entries(INDOORDOUBLEMAP[event].doubles).map(([key, display]) => (
-                                                <option key={key} value={key}>{display}</option>
+                                                    <option key={key} value={key}>{display}</option>
                                                 ))}
                                             </select>
                                         </div>

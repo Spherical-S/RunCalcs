@@ -23,12 +23,12 @@ router.get("/pace", (req, res) => {
     const paceUnit = Number(req.query.paceUnit);
     const grade = Number(req.query.grade);
 
-    if(isNaN(pace) || isNaN(grade) || isNaN(paceUnit)){
-        return res.status(400).json({error: "Invalid or missing parameters"});
+    if (isNaN(pace) || isNaN(grade) || isNaN(paceUnit)) {
+        return res.status(400).json({ error: "Invalid or missing parameters" });
     }
 
-    if (paceUnit > 3 || paceUnit < 0 || grade < -45 || grade > 45 || pace < 0){
-        return res.status(400).json({error: "Invalid parameters"});
+    if (paceUnit > 3 || paceUnit < 0 || grade < -45 || grade > 45 || pace < 0) {
+        return res.status(400).json({ error: "Invalid parameters" });
     }
 
     const result = calculateGAPByPace(pace, paceUnit, grade);
@@ -44,12 +44,12 @@ router.get("/time", (req, res) => {
     const distUnit = Number(req.query.distUnit);
     const grade = Number(req.query.grade);
 
-    if(isNaN(time) || isNaN(distance) || isNaN(distUnit) || isNaN(grade)){
-        return res.status(400).json({error: "Invalid or missing parameters"});
+    if (isNaN(time) || isNaN(distance) || isNaN(distUnit) || isNaN(grade)) {
+        return res.status(400).json({ error: "Invalid or missing parameters" });
     }
 
-    if (distUnit > 3 || distUnit < 0 || grade < -45 || grade > 45 || time < 0 || distance <= 0){
-        return res.status(400).json({error: "Invalid parameters"});
+    if (distUnit > 3 || distUnit < 0 || grade < -45 || grade > 45 || time < 0 || distance <= 0) {
+        return res.status(400).json({ error: "Invalid parameters" });
     }
 
     const result = calculateGAPByTime(time, distance, distUnit, grade);

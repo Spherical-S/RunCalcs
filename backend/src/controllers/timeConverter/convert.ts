@@ -4,62 +4,62 @@ import ptsToPerf from "../WAPointsCalculation/pts-to-perf.js";
 
 import type { eventConversions, convertedResults, eventConversionData, convertableEvents } from "../../types/event-conversions.types";
 
-function WAPerfToPerf(event: string, goal:string, time: number, gender: string): number{
+function WAPerfToPerf(event: string, goal:string, time: number, gender: string): number {
 
-    var eventCategory = "track";
-    var goalCategory = "track";
+    let eventCategory = "track";
+    let goalCategory = "track";
 
-    if (event.includes("sh")){
+    if (event.includes("sh")) {
         eventCategory = "short";
     }
 
-    if (event.includes("Road")){
+    if (event.includes("Road")) {
         eventCategory = "road"
     }
 
-    if (goal.includes("sh")){
+    if (goal.includes("sh")) {
         goalCategory = "short";
     }
 
-    if (goal.includes("Road")){
+    if (goal.includes("Road")) {
         goalCategory = "road"
     }
 
     const pts = perfToPts(eventCategory, gender, event, time, 0).points;
 
-    if(pts <= 0 || pts >= 1400){
+    if (pts <= 0 || pts >= 1400) {
         return NaN;
     }
 
     return ptsToPerf(goalCategory, gender, goal, pts, 0).mark;
 }
 
-function getConversion(toConvert: eventConversionData, current: string, endGoal: string, time: number, gender: string): number{
+function getConversion(toConvert: eventConversionData, current: string, endGoal: string, time: number, gender: string): number {
 
-    if(Number.isNaN(time)){
+    if (Number.isNaN(time)) {
         return NaN;
     }
 
-    if (toConvert.WACompatible){
+    if (toConvert.WACompatible) {
         return WAPerfToPerf(current, endGoal, time, gender);
     }
     
-    if (toConvert.multiplier){
+    if (toConvert.multiplier) {
         return Math.round(time * toConvert.multiplier * 100)/100;
     }
 
-    if(!toConvert.route){
+    if (!toConvert.route) {
         return NaN;
     }
 
     const conversionData = EVENTCONVERSIONS[current as keyof eventConversions]!
     const currentConversion = conversionData[toConvert.route]!
 
-    if (currentConversion.WACompatible){
+    if (currentConversion.WACompatible) {
         time = WAPerfToPerf(current, toConvert.route, time, gender);
     }
 
-    if (currentConversion.multiplier){
+    if (currentConversion.multiplier) {
         time = Math.round(time * currentConversion.multiplier * 100)/100;
     }
 
@@ -73,23 +73,23 @@ function getConversion(toConvert: eventConversionData, current: string, endGoal:
 
 }
 
-export default function convertEvent(event: string, time: number, gender: string): convertedResults{
+export default function convertEvent(event: string, time: number, gender: string): convertedResults {
 
-    var results: convertedResults = {};
+    const results: convertedResults = {};
 
     const availableConversions = EVENTCONVERSIONS[event as keyof eventConversions];
 
-    for(const key in availableConversions){
+    for (const key in availableConversions) {
 
-        let toConvert: eventConversionData = availableConversions![key]!;
-        let current = event;
-        let endGoal = key;
+        const toConvert: eventConversionData = availableConversions![key]!;
+        const current = event;
+        const endGoal = key;
 
-        if(event === "50mH" || event === "55mH" || event === "60mH"){
-            if (gender === "men" && endGoal === "100mH"){
+        if (event === "50mH" || event === "55mH" || event === "60mH") {
+            if (gender === "men" && endGoal === "100mH") {
                 continue;
             }
-            if(gender === "women" && endGoal === "110mH"){
+            if (gender === "women" && endGoal === "110mH") {
                 continue;
             }
         }

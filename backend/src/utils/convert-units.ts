@@ -1,51 +1,51 @@
 import { DistanceUnit, PaceUnit } from "../types/units-enums.js";
 import type { DistanceUnits, PaceUnits } from "../types/unit.types.js";
 
-function convertDistance(number: number, unit: number, round: boolean): DistanceUnits{
+function convertDistance(number: number, unit: number, round: boolean): DistanceUnits {
 
-    var result = {"km": 0, "mi": 0, "m": 0, "yds": 0};
+    const result = { "km": 0, "mi": 0, "m": 0, "yds": 0 };
 
-    if (number == 0){
+    if (number == 0) {
         return result;
     }
 
-    switch(unit){
+    switch (unit) {
 
-        case(DistanceUnit.Km): {
-            result.km = number;
-            result.mi = result.km/1.60934;
-            result.m = result.km*1000;
-            result.yds = result.mi*1760;
-            break;
-        }
+    case (DistanceUnit.Km): {
+        result.km = number;
+        result.mi = result.km/1.60934;
+        result.m = result.km*1000;
+        result.yds = result.mi*1760;
+        break;
+    }
 
-        case(DistanceUnit.Mi): {
-            result.mi = number;
-            result.km = result.mi*1.60934;
-            result.m = result.km*1000;
-            result.yds = result.mi*1760;
-            break;
-        }
+    case (DistanceUnit.Mi): {
+        result.mi = number;
+        result.km = result.mi*1.60934;
+        result.m = result.km*1000;
+        result.yds = result.mi*1760;
+        break;
+    }
 
-        case(DistanceUnit.m): {
-            result.km = number/1000;
-            result.mi = result.km/1.60934;
-            result.m = result.km*1000;
-            result.yds = result.mi*1760;
-            break;
-        }
+    case (DistanceUnit.m): {
+        result.km = number/1000;
+        result.mi = result.km/1.60934;
+        result.m = result.km*1000;
+        result.yds = result.mi*1760;
+        break;
+    }
 
-        case(DistanceUnit.yds): {
-            result.mi = number/1760;
-            result.km = result.mi*1.60934;
-            result.m = result.km*1000;
-            result.yds = result.mi*1760;
-            break;
-        }
+    case (DistanceUnit.yds): {
+        result.mi = number/1760;
+        result.km = result.mi*1.60934;
+        result.m = result.km*1000;
+        result.yds = result.mi*1760;
+        break;
+    }
 
     }
 
-    if(round){
+    if (round) {
         roundDistanceUnits(result);
     }
 
@@ -53,51 +53,51 @@ function convertDistance(number: number, unit: number, round: boolean): Distance
 
 }
 
-function convertPace(number: number, unit: number, round: boolean): PaceUnits{
+function convertPace(number: number, unit: number, round: boolean): PaceUnits {
 
-    var result = {"secPerKm": 0, "secPerMi": 0, "KmsPerHour": 0, "MisPerHour": 0};
+    const result = { "secPerKm": 0, "secPerMi": 0, "KmsPerHour": 0, "MisPerHour": 0 };
 
-    if (number == 0){
+    if (number == 0) {
         return result;
     }
 
-    switch(unit){
+    switch (unit) {
 
-        case(PaceUnit.SecondsPerKm): {
-            result.secPerKm = number;
-            result.secPerMi = result.secPerKm*1.60934;
-            result.KmsPerHour = 1/(result.secPerKm/3600);
-            result.MisPerHour = result.KmsPerHour/1.60934;
-            break;
-        }
+    case (PaceUnit.SecondsPerKm): {
+        result.secPerKm = number;
+        result.secPerMi = result.secPerKm*1.60934;
+        result.KmsPerHour = 1/(result.secPerKm/3600);
+        result.MisPerHour = result.KmsPerHour/1.60934;
+        break;
+    }
 
-        case(PaceUnit.SecondsPerMi): {
-            result.secPerMi = number;
-            result.secPerKm = result.secPerMi/1.60934;
-            result.KmsPerHour = 1/(result.secPerKm/3600);
-            result.MisPerHour = result.KmsPerHour/1.60934;
-            break;
-        }
+    case (PaceUnit.SecondsPerMi): {
+        result.secPerMi = number;
+        result.secPerKm = result.secPerMi/1.60934;
+        result.KmsPerHour = 1/(result.secPerKm/3600);
+        result.MisPerHour = result.KmsPerHour/1.60934;
+        break;
+    }
 
-        case(PaceUnit.KmsPerHour): {
-            result.KmsPerHour = number;
-            result.MisPerHour = result.KmsPerHour/1.60934;
-            result.secPerKm = (1/result.KmsPerHour)*3600;
-            result.secPerMi = result.secPerKm*1.60934;
-            break;
-        }
+    case (PaceUnit.KmsPerHour): {
+        result.KmsPerHour = number;
+        result.MisPerHour = result.KmsPerHour/1.60934;
+        result.secPerKm = (1/result.KmsPerHour)*3600;
+        result.secPerMi = result.secPerKm*1.60934;
+        break;
+    }
 
-        case(PaceUnit.MisPerHour): {
-            result.MisPerHour = number;
-            result.KmsPerHour = result.MisPerHour*1.60934;
-            result.secPerKm = (1/result.KmsPerHour)*3600;
-            result.secPerMi = result.secPerKm*1.60934;
-            break;
-        }
+    case (PaceUnit.MisPerHour): {
+        result.MisPerHour = number;
+        result.KmsPerHour = result.MisPerHour*1.60934;
+        result.secPerKm = (1/result.KmsPerHour)*3600;
+        result.secPerMi = result.secPerKm*1.60934;
+        break;
+    }
 
     }
 
-    if(round){
+    if (round) {
         roundPaceUnits(result);
     }
 
@@ -105,7 +105,7 @@ function convertPace(number: number, unit: number, round: boolean): PaceUnits{
 
 }
 
-function roundDistanceUnits(unit: DistanceUnits): DistanceUnits{
+function roundDistanceUnits(unit: DistanceUnits): DistanceUnits {
 
     unit.km = Math.round(unit.km*100)/100;
     unit.mi = Math.round(unit.mi*100)/100;
@@ -116,7 +116,7 @@ function roundDistanceUnits(unit: DistanceUnits): DistanceUnits{
 
 }
 
-function roundPaceUnits(unit: PaceUnits): PaceUnits{
+function roundPaceUnits(unit: PaceUnits): PaceUnits {
     
     unit.secPerKm = Math.round(unit.secPerKm*100)/100;
     unit.secPerMi = Math.round(unit.secPerMi*100)/100;
@@ -127,6 +127,6 @@ function roundPaceUnits(unit: PaceUnits): PaceUnits{
 
 }
 
-const unitConvert = {convertDistance, convertPace, roundDistanceUnits, roundPaceUnits};
+const unitConvert = { convertDistance, convertPace, roundDistanceUnits, roundPaceUnits };
 
 export default unitConvert;

@@ -1,25 +1,25 @@
 export default function elevationToGrade(elevation: number, elevationUnit: string, distance: number, distanceUnit: string): number {
 
-    var elevationInMeters: number;
-    var distanceInMeters: number;
+    let elevationInMeters: number;
+    let distanceInMeters: number;
 
-    if (elevationUnit === "%"){
+    if (elevationUnit === "%") {
         return elevation;
     }
-    else if (elevationUnit === "yds"){
+    else if (elevationUnit === "yds") {
         elevationInMeters = elevation * 0.9144;
     }
-    else if (elevationUnit === "ft"){
+    else if (elevationUnit === "ft") {
         elevationInMeters = elevation * 0.3048;
     } else {
         elevationInMeters = elevation;
     }
 
-    if (distanceUnit === "km"){
+    if (distanceUnit === "km") {
         distanceInMeters = distance * 1000;
-    } else if (distanceUnit === "mi"){
+    } else if (distanceUnit === "mi") {
         distanceInMeters = distance * 1609.34;
-    } else if (distanceUnit === "yds"){
+    } else if (distanceUnit === "yds") {
         distanceInMeters = distance * 0.9144;
     } else {
         distanceInMeters = distance;

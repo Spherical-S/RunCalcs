@@ -15,24 +15,24 @@ import GAPCalculator from "./pages/GAPCalculator";
 import About from "./pages/About";
 
 export default function App() {
-  return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/pace" element={<PaceCalculator />} />
-          <Route path="/units" element={<UnitConverter />} />
-          <Route path="/wa-points" element={<WAPointsCalculator />} />
-          <Route path="/splits" element={<SplitsCalculator />} />
-          <Route path="/steeple-laps" element={<SteepleLapsCalculator />} />
-          <Route path="/events" element={<EventConversionTool />} />
-          <Route path="/flat-banked-track" element={<FlatBankedTrackConverter />} />
-          <Route path="/elevation-pace" element={<GAPCalculator />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      </main>
-      <Footer />
-    </div>
-  );
+    return (
+        <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-grow">
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/pace" element={<PaceCalculator />} />
+                    <Route path="/units" element={<UnitConverter />} />
+                    <Route path="/wa-points" element={<WAPointsCalculator />} />
+                    <Route path="/splits" element={<SplitsCalculator />} />
+                    <Route path="/steeple-laps" element={<SteepleLapsCalculator />} />
+                    <Route path="/events" element={<EventConversionTool />} />
+                    <Route path="/flat-banked-track" element={<FlatBankedTrackConverter />} />
+                    <Route path="/elevation-pace" element={<GAPCalculator />} />
+                    <Route path="/about" element={<About />} />
+                </Routes>
+            </main>
+            <Footer />
+        </div>
+    );
 }

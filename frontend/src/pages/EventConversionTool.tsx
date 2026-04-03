@@ -26,8 +26,8 @@ export default function EventConversionTool() {
     }, []);
 
     useEffect(() => {
-            const url = import.meta.env.VITE_API_URL + "/ping"
-            fetch(url)
+        const url = import.meta.env.VITE_API_URL + "/ping"
+        fetch(url)
             .then(res => {
                 if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
@@ -40,19 +40,19 @@ export default function EventConversionTool() {
             });
     }, []);
 
-    function handleEventTypeChange(e: any){
+    function handleEventTypeChange(e: any) {
 
         setErrorMessage("");
 
         setEventType(e.target.value);
 
-        if (e.target.value === "Track"){
+        if (e.target.value === "Track") {
             setSelectedEvent("1500m");
         }
-        if (e.target.value === "Short"){
+        if (e.target.value === "Short") {
             setSelectedEvent("1500msh");
         }
-        if (e.target.value === "Road"){
+        if (e.target.value === "Road") {
             setSelectedEvent("RoadHM");
         }
 
@@ -63,7 +63,7 @@ export default function EventConversionTool() {
 
     }
 
-    function handleSelectedGenderChange(e: any){
+    function handleSelectedGenderChange(e: any) {
 
         setErrorMessage("");
         setGenderType(e.target.value);
@@ -74,7 +74,7 @@ export default function EventConversionTool() {
 
     }
 
-    function handleSelectedEventChange(e: any){
+    function handleSelectedEventChange(e: any) {
 
         setErrorMessage("");
         setSelectedEvent(e.target.value);
@@ -85,7 +85,7 @@ export default function EventConversionTool() {
 
     }
 
-    function handleCalculateConversions(){
+    function handleCalculateConversions() {
 
         setErrorMessage("");
 
@@ -93,24 +93,24 @@ export default function EventConversionTool() {
         const mins = minutes === "" ? 0 : Number(minutes);
         const secs = seconds === "" ? 0 : Number(seconds);
 
-        if((genderType === "men" && selectedEvent === "100mH") || (genderType === "women" && selectedEvent === "110mH")){
+        if ((genderType === "men" && selectedEvent === "100mH") || (genderType === "women" && selectedEvent === "110mH")) {
             setErrorMessage("Invalid event for this gender (Men --> 110mH / Women --> 100mH)");
             return;
         }
 
-        if(hrs < 0 || mins < 0 || secs < 0){
+        if (hrs < 0 || mins < 0 || secs < 0) {
             setErrorMessage("Please provide positive time values");
             return;
         }
 
-        var time = secs + (mins*60) + (hrs * 60 * 60);
+        const time = secs + (mins*60) + (hrs * 60 * 60);
 
-        if(time <= 0){
+        if (time <= 0) {
             setErrorMessage("Please provide positive time values");
             return;
         }
 
-        var url = import.meta.env.VITE_API_URL + `/timeconverter/convert?event=${selectedEvent}&time=${time}&gender=${genderType}`;
+        const url = import.meta.env.VITE_API_URL + `/timeconverter/convert?event=${selectedEvent}&time=${time}&gender=${genderType}`;
         
         fetch(url)
             .then(res => {
@@ -120,15 +120,15 @@ export default function EventConversionTool() {
                 return res.json();
             })
             .then(data => {
-                var r : resultsType = {};
+                const r : resultsType = {};
                 Object.entries(data).map(([e, time]) => {
                     e = e.replace("sh", " indoor")
                     e = e.replace("Road", "Road ");
                     e = e.replace("Miles", " Miles");
-                    if(time === null){
+                    if (time === null) {
                         setErrorMessage("Error converting event...");
                         r[e as string] = "NaN";
-                    }else{
+                    } else {
                         r[e as string] = formatSecToPace(Number(time));
                     }
                 })
@@ -164,7 +164,7 @@ export default function EventConversionTool() {
 
                                     <select value={eventType} onChange={(e) => handleEventTypeChange(e)} className="w-full rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
                                         {Object.keys(EVENTMAP).map((eType, i) => (
-                                        <option key={i} value={eType}>{eType}</option>
+                                            <option key={i} value={eType}>{eType}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -189,7 +189,7 @@ export default function EventConversionTool() {
 
                                     <select value={selectedEvent} onChange={(e) => handleSelectedEventChange(e)} className="w-full rounded-lg border border-gray-300 px-2 py-1 focus:ring-2 focus:ring-cyan-500">
                                         {Object.entries(EVENTMAP[eventType]).map(([key, display]) => (
-                                        <option key={key} value={key}>{display}</option>
+                                            <option key={key} value={key}>{display}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -200,22 +200,22 @@ export default function EventConversionTool() {
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Time (hh:mm:ss.ss)</label>
                                 <div className="flex gap-2">
                                     <input type="number" placeholder="hh" value={hours} onChange={(e) => setHours(e.target.value)}
-                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                     <span className="self-center">:</span>
 
                                     <input type="number" placeholder="mm" value={minutes} onChange={(e) => setMinutes(e.target.value)}
-                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
 
                                     <span className="self-center">:</span>
 
                                     <input type="number" placeholder="ss" value={seconds} onChange={(e) => setSeconds(e.target.value)}
-                                    className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
+                                        className="w-16 rounded-lg border border-gray-300 px-2 py-1 text-center focus:ring-2 focus:ring-cyan-500" />
                                 </div>
                             </div>
 
                             <button onClick={handleCalculateConversions}
-                            className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Calculate Conversions</button>
+                                className="w-full bg-cyan-600 text-white py-2 rounded-xl shadow hover:bg-cyan-700 hover:cursor-pointer transition">Calculate Conversions</button>
 
                             {errorMessage && (
                                 <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded">{errorMessage}</div>

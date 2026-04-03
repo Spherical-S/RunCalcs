@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MenuItem from "./MenuItem";
 
-export default function Header(){
+export default function Header() {
 
     const [open, setOpen] = useState(false);
     const firstLinkRef = useRef<HTMLAnchorElement | null>(null);
@@ -12,7 +12,7 @@ export default function Header(){
     useEffect(() => {
 
         const onKey = (e: KeyboardEvent) => {
-            if (e.key === "Escape"){
+            if (e.key === "Escape") {
                 setOpen(false);
             }
         };
@@ -26,12 +26,12 @@ export default function Header(){
     }, []);
 
     useEffect(() => {
-        if (open){
+        if (open) {
             setTimeout(() => firstLinkRef.current?.focus(), 50);
         }
     }, [open]);
 
-    return(
+    return (
         <>
             <div className="bg-gray-700 mb-5 flex relative">
                 <Link to="/">

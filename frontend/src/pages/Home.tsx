@@ -8,8 +8,8 @@ export default function Home() {
     const [errorMessage, setErrorMessage] = useState("Waiting for API...");
 
     useEffect(() => {
-            const url = import.meta.env.VITE_API_URL + "/ping"
-            fetch(url)
+        const url = import.meta.env.VITE_API_URL + "/ping"
+        fetch(url)
             .then(res => {
                 if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
