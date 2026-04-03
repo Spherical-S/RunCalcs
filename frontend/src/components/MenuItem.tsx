@@ -6,9 +6,9 @@ type propTypes = {
     redirect: string,
 };
 
-export default function MenuItem({label, icon, redirect}: propTypes){
+export default function MenuItem({ label, icon, redirect }: propTypes) {
 
-    return(
+    return (
 
         <Link to={redirect} className="flex gap-4 py-6 hover:bg-gray-300 rounded-2xl">
             <img src={icon} alt="icon" />

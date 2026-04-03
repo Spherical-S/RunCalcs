@@ -5,7 +5,7 @@ import type { splitsReturn, split } from "../../types/splits.types.js";
 
 
 
-export default function getSplits(distance: number, distUnit: number, pace: number, paceUnit: number, splitLen: number, splitUnit: number): splitsReturn{
+export default function getSplits(distance: number, distUnit: number, pace: number, paceUnit: number, splitLen: number, splitUnit: number): splitsReturn {
 
     const time = calculateTime(pace, distance, paceUnit, distUnit).time;
 

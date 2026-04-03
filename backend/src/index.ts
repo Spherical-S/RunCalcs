@@ -20,17 +20,17 @@ app.use(express.json({ limit: '1MB' }));
 app.use(express.urlencoded({ extended: true, limit: '1MB' }));
 
 app.use((req, res, next) => {
-  res.setTimeout(10_000, () => {
-    if (!res.headersSent) {
-      res.status(503).json({ error: 'Request timed out' });
-    }
-  });
-  next();
+    res.setTimeout(10_000, () => {
+        if (!res.headersSent) {
+            res.status(503).json({ error: 'Request timed out' });
+        }
+    });
+    next();
 });
 
 app.use(rateLimit({
-  windowMs: 1 * 60 * 1000,
-  max: 60,
+    windowMs: 1 * 60 * 1000,
+    max: 60,
 }));
 
 app.use("/api/ping", pingRoute);

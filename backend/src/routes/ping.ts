@@ -3,7 +3,7 @@ import express from "express";
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    res.json({result: "API is alive!"});
+    res.json({ result: "API is alive!" });
 });
 
 export default router;

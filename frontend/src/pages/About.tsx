@@ -7,8 +7,8 @@ export default function About() {
     const [errorMessage, setErrorMessage] = useState("Waiting for API...");
 
     useEffect(() => {
-            const url = import.meta.env.VITE_API_URL + "/ping"
-            fetch(url)
+        const url = import.meta.env.VITE_API_URL + "/ping"
+        fetch(url)
             .then(res => {
                 if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
@@ -40,14 +40,14 @@ export default function About() {
             <section>
                 <h2 className="text-2xl font-semibold mb-2">Features</h2>
                 <ul className="list-disc pl-6 text-gray-700 space-y-1">
-                <li>Pace Calculator: Calculate a runs pace, distance, or time</li>
-                <li>Unit Converter: Convert between units for both distances and paces</li>
-                <li>WA Points Calculation: Easily calculate how many WA points a performance gives and vice versa</li>
-                <li>Splits Calculator: Calculate the splits required to run a certain time/pace</li>
-                <li>Steeplechase Lap Time Calculator: Calculate the time needed per lap to achieve a certain time/pace in the Steeplechase depending on where the water pit is located</li>
-                <li>Event Conversion Tool: Find equivalent times between similar events</li>
-                <li>Indoor Flat/Banked Track Converter: Convert times between flat, undersized, and banked indoor tracks.</li>
-                <li>Elevation pace calculator: Calculate how fast you can run on a flat surface given a run or pace with elevation.</li>
+                    <li>Pace Calculator: Calculate a runs pace, distance, or time</li>
+                    <li>Unit Converter: Convert between units for both distances and paces</li>
+                    <li>WA Points Calculation: Easily calculate how many WA points a performance gives and vice versa</li>
+                    <li>Splits Calculator: Calculate the splits required to run a certain time/pace</li>
+                    <li>Steeplechase Lap Time Calculator: Calculate the time needed per lap to achieve a certain time/pace in the Steeplechase depending on where the water pit is located</li>
+                    <li>Event Conversion Tool: Find equivalent times between similar events</li>
+                    <li>Indoor Flat/Banked Track Converter: Convert times between flat, undersized, and banked indoor tracks.</li>
+                    <li>Elevation pace calculator: Calculate how fast you can run on a flat surface given a run or pace with elevation.</li>
                 </ul>
             </section>
 
@@ -56,9 +56,9 @@ export default function About() {
                 <p className="leading-relaxed text-gray-700">
                 I built RunCalcs to push myself with new technologies. The backend is
                 an API built with <strong>TypeScript</strong> and{" "}
-                <strong>Express</strong>, while the frontend is powered by{" "}
-                <strong>React</strong>, <strong>TypeScript</strong>,{" "}
-                <strong>TailwindCSS</strong>, and <strong>Vite</strong>. While I had prior
+                    <strong>Express</strong>, while the frontend is powered by{" "}
+                    <strong>React</strong>, <strong>TypeScript</strong>,{" "}
+                    <strong>TailwindCSS</strong>, and <strong>Vite</strong>. While I had prior
                 experience in JavaScript, TypeScript quickly became a favorite of
                 mine: it’s simple enough to be intuitive, yet strict enough to prevent
                 errors while coding.
@@ -95,7 +95,7 @@ export default function About() {
 
             {errorMessage && (
                 <div className="bg-red-50 border border-red-400 text-red-700 px-4 py-3 rounded-md text-sm">
-                {errorMessage}
+                    {errorMessage}
                 </div>
             )}
         </div>

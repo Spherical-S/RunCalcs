@@ -1,17 +1,17 @@
 import calculateTime from "../paceCalculation/time.js";
 
-export default function steepleSplitsByPace(pace: number, paceUnit: number, pitType: string): {timeperlap: number}{
+export default function steepleSplitsByPace(pace: number, paceUnit: number, pitType: string): {timeperlap: number} {
 
-    var dist = 0;
+    let dist = 0;
 
-    if(pitType === "inside"){
+    if (pitType === "inside") {
         dist = 395;
-    }else{
+    } else {
         dist = 418;
     }
 
     const time = calculateTime(pace, dist, paceUnit, 2).time;
 
-    return {timeperlap: time};
+    return { timeperlap: time };
 
 }

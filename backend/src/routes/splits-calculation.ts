@@ -17,12 +17,12 @@ router.get("/bytime", (req, res) => {
     const splitLen = Number(req.query.splitLen);
     const splitUnit = Number(req.query.splitUnit);
 
-    if (isNaN(distance) || isNaN(distUnit) || isNaN(time) || isNaN(splitLen) || isNaN(splitUnit)){
-        return res.status(400).json({error: "Invalid or missing parameters"});
+    if (isNaN(distance) || isNaN(distUnit) || isNaN(time) || isNaN(splitLen) || isNaN(splitUnit)) {
+        return res.status(400).json({ error: "Invalid or missing parameters" });
     }
 
-    if(time <= 0 || distUnit < 0 || distUnit > 3 || splitUnit < 0 || splitUnit > 3 || distance <= 0){
-        return res.status(400).json({error: "Invalid parameters"});
+    if (time <= 0 || distUnit < 0 || distUnit > 3 || splitUnit < 0 || splitUnit > 3 || distance <= 0) {
+        return res.status(400).json({ error: "Invalid parameters" });
     }
 
     const result = getSplitsByTime(distance, distUnit, time, splitLen, splitUnit);
@@ -40,12 +40,12 @@ router.get("/bypace", (req, res) => {
     const splitLen = Number(req.query.splitLen);
     const splitUnit = Number(req.query.splitUnit);
 
-    if (isNaN(distance) || isNaN(distUnit) || isNaN(pace) || isNaN(paceUnit) || isNaN(splitLen) || isNaN(splitUnit)){
-        return res.status(400).json({error: "Invalid or missing parameters"});
+    if (isNaN(distance) || isNaN(distUnit) || isNaN(pace) || isNaN(paceUnit) || isNaN(splitLen) || isNaN(splitUnit)) {
+        return res.status(400).json({ error: "Invalid or missing parameters" });
     }
 
-    if(pace <= 0 || distUnit < 0 || distUnit > 3 || splitUnit < 0 || splitUnit > 3 || distance <= 0 || paceUnit < 0 || paceUnit > 3){
-        return res.status(400).json({error: "Invalid parameters"});
+    if (pace <= 0 || distUnit < 0 || distUnit > 3 || splitUnit < 0 || splitUnit > 3 || distance <= 0 || paceUnit < 0 || paceUnit > 3) {
+        return res.status(400).json({ error: "Invalid parameters" });
     }
 
     const result = getSplitsByPace(distance, distUnit, pace, paceUnit, splitLen, splitUnit);

@@ -4,7 +4,7 @@ import type { splitsReturn, split } from "../../types/splits.types.js";
 
 
 
-export default function getSplits(distance: number, distUnit: number, time: number, splitLen: number, splitUnit: number): splitsReturn{
+export default function getSplits(distance: number, distUnit: number, time: number, splitLen: number, splitUnit: number): splitsReturn {
 
     const dist = unitConvert.convertDistance(distance, distUnit, false);
     const splitDist = unitConvert.convertDistance(splitLen, splitUnit, false);
@@ -14,10 +14,10 @@ export default function getSplits(distance: number, distUnit: number, time: numb
     const numFullSplits = Math.floor(dist.m/splitDist.m);
 
     const splitsArray: split[] = []
-    var cumulativeDist = 0; //in km
-    var cumulativeTime = 0;
+    let cumulativeDist = 0; //in km
+    let cumulativeTime = 0;
 
-    for (let i: number = 0; i<numFullSplits; i++){
+    for (let i: number = 0; i<numFullSplits; i++) {
 
         cumulativeDist += splitDist.km;
         cumulativeTime += splitTime;
@@ -33,7 +33,7 @@ export default function getSplits(distance: number, distUnit: number, time: numb
 
     const shortSplit = Math.round((dist.m%splitDist.m)*100)/100;
 
-    if (shortSplit > 0){
+    if (shortSplit > 0) {
 
         const shortSplitTime = time - (numFullSplits * splitTime);
         cumulativeDist += unitConvert.convertDistance(shortSplit, 2, false).km;
@@ -48,6 +48,6 @@ export default function getSplits(distance: number, distUnit: number, time: numb
 
     }
 
-    return {result: splitsArray};
+    return { result: splitsArray };
 
 }
