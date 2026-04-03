@@ -47,6 +47,7 @@ export default function About() {
                 <li>Steeplechase Lap Time Calculator: Calculate the time needed per lap to achieve a certain time/pace in the Steeplechase depending on where the water pit is located</li>
                 <li>Event Conversion Tool: Find equivalent times between similar events</li>
                 <li>Indoor Flat/Banked Track Converter: Convert times between flat, undersized, and banked indoor tracks.</li>
+                <li>Elevation pace calculator: Calculate how fast you can run on a flat surface given a run or pace with elevation.</li>
                 </ul>
             </section>
 

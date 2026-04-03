@@ -39,6 +39,7 @@ export default function Home() {
                 <HomeNavigationButton label="Steeplechase Laps Calculator" description="Estimate lap times depending on water pit location" color="bg-cyan-600" hoverColor="hover:bg-cyan-700" redirect="/steeple-laps" />
                 <HomeNavigationButton label="Event Conversion Tool" description="Convert times between similar events" color="bg-red-600" hoverColor="hover:bg-red-700" redirect="/events" />
                 <HomeNavigationButton label="Flat/Banked Track Converter" description="Calculate between flat, banked, and undersized indoor tracks" color="bg-indigo-600" hoverColor="hover:bg-indigo-700" redirect="/flat-banked-track" />
+                <HomeNavigationButton label="Elevation Pace Calculator" description="Calculate pace adjustments for elevation changes/grade" color="bg-yellow-500" hoverColor="hover:bg-yellow-600" redirect="/elevation-pace" />
                 <HomeNavigationButton label="About RunCalcs" description="Learn more about the project" color="bg-purple-600" hoverColor="hover:bg-purple-700" redirect="/about" />
             </div>
 
