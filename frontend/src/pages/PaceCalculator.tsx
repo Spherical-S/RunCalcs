@@ -11,7 +11,7 @@ export default function PaceCalculator() {
     const [timeOpen, setTimeOpen] = useState(false);
     const [distanceOpen, setDistanceOpen] = useState(false);
 
-    const [errorMessage, setErrorMessage] = useState("Waiting for API...");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const [paceUnit, setPaceUnit] = useState("PacePerKm");
     const [distanceUnit, setDistanceUnit] = useState("km");

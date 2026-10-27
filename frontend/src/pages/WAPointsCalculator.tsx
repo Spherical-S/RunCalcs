@@ -37,7 +37,7 @@ export default function WAPointsCalculator() {
     const [markMinutes, setMarkMinutes] = useState("");
     const [markSeconds, setMarkSeconds] = useState("");
 
-    const [errorMessage, setErrorMessage] = useState("Waiting for API...");
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         document.title = "RunCalcs: WA Points Calculator";

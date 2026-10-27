@@ -12,7 +12,7 @@ export default function SplitsCalculator() {
 
     const resultsRef = useRef<HTMLDivElement | null>(null);
 
-    const [errorMessage, setErrorMessage] = useState("Waiting for API...");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const [paceUnit, setPaceUnit] = useState("TotalTime");
     const [distanceUnit, setDistanceUnit] = useState("km");
