@@ -11,7 +11,7 @@ export default function GAPCalculator() {
     const [timeOpen, setTimeOpen] = useState(true);
     const [paceOpen, setPaceOpen] = useState(false);
 
-    const [errorMessage, setErrorMessage] = useState("Waiting for API...");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const [paceUnit, setPaceUnit] = useState("PacePerKm");
     const [distanceUnit, setDistanceUnit] = useState("km");

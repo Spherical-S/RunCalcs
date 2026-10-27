@@ -10,7 +10,7 @@ export default function UnitConverter() {
     const [paceOpen, setPaceOpen] = useState(true);
     const [distanceOpen, setDistanceOpen] = useState(false);
 
-    const [errorMessage, setErrorMessage] = useState("Waiting for API...");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const [paceUnit, setPaceUnit] = useState("PacePerKm");
     const [distanceUnit, setDistanceUnit] = useState("km");

@@ -10,7 +10,7 @@ type resultsType = {
 
 export default function EventConversionTool() {
 
-    const [errorMessage, setErrorMessage] = useState("Waiting for API...");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const [eventType, setEventType] = useState<keyof eventMapType>("Track");
     const [genderType, setGenderType] = useState("men");

@@ -20,7 +20,7 @@ export default function FlatBankedTrackConverter() {
     const [isDouble, setIsDouble] = useState(false);
     const [doubleEvent, setDoubleEvent] = useState("");
 
-    const [errorMessage, setErrorMessage] = useState("Waiting for API...");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const [results, setResults] = useState({ "undersized": "", "flat": "", "banked": "", "double": "" });
 

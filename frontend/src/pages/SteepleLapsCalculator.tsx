@@ -8,7 +8,7 @@ export default function SteepleLapsCalculator() {
     const distanceMap: Record<string, number> = { km: 0, mi: 1, m: 2, yds: 3 };
     const paceMap: Record<string, number> = { TotalTime: 4, PacePerKm: 0, PacePerMi: 1, "PaceKm/h": 2, "PaceMi/h": 3 };
 
-    const [errorMessage, setErrorMessage] = useState("Waiting for API...");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const [paceUnit, setPaceUnit] = useState("TotalTime");
     const [distanceUnit, setDistanceUnit] = useState("km");
